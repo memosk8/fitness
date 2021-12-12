@@ -4,12 +4,20 @@
 
 En este repositorio ya se han incluido las herramientas necesarias para comenzar a desarrollar el proyecto. Se ha decidido trabajar en conjunto, esto implica lo siguiente:
    - Cada equipo tendrá que ser responsable de crear los respectivos archivos y clases necesarias para su módulo usando artisan (el procedimiento se describe más abajo).
-   - Cada equipo trabajará en una rama (branch) independiente de los demás.
-   - 
+   - Cada equipo trabajará en una rama (branch) independiente de los demás pero usando este mismo proyecto.
+   - Se deben tener muy bien identificadas las entidades de cada modulo y ser consciente de las entidades de los demás modulos
+   - Cada equipo se encargará de delegar el trabajo propio a sus integrantes convenientemente
 
-## About Laravel
+## Crear archivos y clases necesarias para representar cada entidad 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Cada entidad existente dentro de una aplicación de laravel se puede representar con una clase, a la que nos referimos como modelo.
+Este modelo describirá los atributos identificados para cada entidad, por lo que se deben tener bien definidos ya en cada modulo.
+Cada ruta dentro de la aplicación necesita un controlador que se haga cargo de manejar todas las peticiones relacionadas con ella misma, y en laravel tenemos la capacidad de usar artisan para crear controladores de forma rápida.
+Estos controladores, como su nombre hace referencia, controlan practicamente toda la acividad relacionada con sus propias rutas
+
+###Para crear un modelo, junto con su respectiva migración (tablas en bd) y controllador usamos:
+<pre>php artisan make:model {nombre_entidad} -mc</pre>
+
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
