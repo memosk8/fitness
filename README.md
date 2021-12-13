@@ -18,7 +18,7 @@ Cada ruta dentro de la aplicación necesita un controlador que se haga cargo de 
 Estos controladores, como su nombre hace referencia, controlan practicamente toda la acividad relacionada con sus propias rutas
 
 ## Para crear un modelo, junto con su respectiva migración (tablas en bd) y controllador usamos:
-<ul><li><h3><pre>php artisan make:model {<i>nombre_entidad</i>} -mc </pre></h3></li></ul>
+<ul><li><h3><pre>php artisan make:model <i>nombre_entidad</i> -mc </pre></h3></li></ul>
 
 <i>nombre_entidad</i> debe ser preferentemente singular, por ejemplo <i>producto</i> o <i>socio</i>
 
