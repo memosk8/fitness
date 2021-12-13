@@ -32,7 +32,7 @@ Para ello debemos modificar cada uno de los modelos ubicados en la ruta del proy
 Al momento de crear un nuevo proyecto de laravel, en la carpeta app/Models podemos encontrar algunos archivos generados para trabajar directamente sobre ellos.   
 Como ejemplo para esta demostración, se ha propone una estructura de carpetas la cual no debería ser modificada y si debería ser considerada al momento de trabajar con los modelos, que nos puede servir para simplificar el objetivo de incorporar los módulos en lugar de realizar un proyecto nuevo para cada módulo.
 
-<img src="./workfolder_structure.jpg" alt="Estructura de modelos para cada modulo propuesta" height="250px">
+<img src="https://drive.google.com/file/d/1ydaD-8iac-4z5UpTh4xcI15-LDa5Uvpv/view" alt="Estructura de modelos para cada modulo propuesta" height="250px">
 
 ## Recursos consultados 
    - **eloquent** (para manejar relaciones en laravel)
