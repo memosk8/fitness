@@ -24,10 +24,15 @@ Estos controladores, como su nombre hace referencia, controlan practicamente tod
 
 Los parametros **-m** y **-c** que en este caso se usan juntos **-mc** indican respectivamente que el modelo a crear tambien tendrá una **m**igración y un **c**ontrolador (el orden no importa)
 
-### Se debe ejecutar ese comando para cada una de las entidades de cada módulo
+### <b>Se debe ejecutar ese comando para cada una de las entidades de cada módulo</b>
+
 Una vez creados los archivos y clases necesarias, ahora nos corresponde agregar los atributos de cada una de nuestras entidades.<br>
 Para ello debemos modificar cada uno de los modelos ubicados en la ruta del proyecto <b>app/Models</b>
-Al momento de crear un nuevo proyecto de laravel 
+
+Al momento de crear un nuevo proyecto de laravel, en la carpeta app/Models podemos encontrar algunos archivos generados para trabajar directamente sobre ellos.   
+Como ejemplo para esta demostración, se ha propone una estructura de carpetas la cual no debería ser modificada y si debería ser considerada al momento de trabajar con los modelos, que nos puede servir para simplificar el objetivo de incorporar los módulos en lugar de realizar un proyecto nuevo para cada módulo.
+
+<img src="./workfolder_structure.jpg" alt="Estructura de modelos para cada modulo propuesta" height="250px">
 
 ## Recursos consultados 
    - **eloquent** (para manejar relaciones en laravel)
