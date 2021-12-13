@@ -10,12 +10,15 @@ En este repositorio ya se han incluido las herramientas necesarias para comenzar
 # Crear archivos y clases necesarias para representar cada entidad 
 
 Cada entidad existente dentro de una aplicación de laravel se puede representar con una clase, a la que nos referimos como modelo.
+
 Este modelo describirá los atributos identificados para cada entidad, por lo que se deben tener bien definidos ya en cada modulo.
+
 Cada ruta dentro de la aplicación necesita un controlador que se haga cargo de manejar todas las peticiones relacionadas con ella misma, y en laravel tenemos la capacidad de usar artisan para crear controladores de forma rápida.
+
 Estos controladores, como su nombre hace referencia, controlan practicamente toda la acividad relacionada con sus propias rutas
 
 ## Para crear un modelo, junto con su respectiva migración (tablas en bd) y controllador usamos:
-<ul><li><h2><pre>php artisan make:model {<i>nombre_entidad</i>} -mc </pre></h2></li></ul>
+<ul><li><h3><pre>php artisan make:model {<i>nombre_entidad</i>} -mc </pre></h3></li></ul>
 
 <i>nombre_entidad</i> debe ser preferentemente singular, por ejemplo <i>producto</i> o <i>socio</i>
 
