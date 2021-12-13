@@ -15,7 +15,7 @@ Este modelo describirá los atributos identificados para cada entidad, por lo qu
 Cada ruta dentro de la aplicación necesita un controlador que se haga cargo de manejar todas las peticiones relacionadas con ella misma, y en laravel tenemos la capacidad de usar artisan para crear controladores de forma rápida.
 Estos controladores, como su nombre hace referencia, controlan practicamente toda la acividad relacionada con sus propias rutas
 
-###Para crear un modelo, junto con su respectiva migración (tablas en bd) y controllador usamos:
+### Para crear un modelo, junto con su respectiva migración (tablas en bd) y controllador usamos:
 <pre>php artisan make:model {nombre_entidad} -mc</pre>
 
 
