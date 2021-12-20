@@ -18,4 +18,8 @@ class Promocion extends Model
         'producto','porcentaje',
         'fecha_inicio','fecha_fin',
     ];
+
+    public function producto(){
+        return $this->hasOne(Producto::class);
+    }
 }

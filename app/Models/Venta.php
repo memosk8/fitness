@@ -18,4 +18,16 @@ class Venta extends Model
         'fecha','user_id',
         'producto','total'
     ];
+
+    public function productos(){
+        return $this->hasMany(Producto::class);
+    } 
+
+    public function usuario(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function socio(){
+        return $this->hasOne(Socio::class);
+    }
 }

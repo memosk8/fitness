@@ -20,4 +20,8 @@ class Centro extends Model
         'numInt','col',
         'estado','ciudad','cp'
     ];
+
+    public function tienda(){
+        return $this->hasOne(Tienda::class);
+    }
 }

@@ -17,4 +17,8 @@ class Tienda extends Model
     protected $fillable = [
         'centro'
     ];
+
+    public function centro(){
+        return $this->belongsTo(Centro::class);
+    }
 }

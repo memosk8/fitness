@@ -15,25 +15,11 @@ class Almacen extends Model
      * @var string[]
      */
     protected $fillable = [
-        'producto','stock','centro',
+        'producto','stock','centro'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-/*     protected $hidden = [
-        'password',
-        'remember_token',
-    ]; */
+    public function productos(){
+        return $this->hasMany(Producto::class);
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-/*     protected $casts = [
-        'email_verified_at' => 'datetime',
-    ]; */
 }
