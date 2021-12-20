@@ -14,8 +14,8 @@ class ProductosController extends Controller
       #se valida si existe un usuario autenticado en la sesion
       if($userid = auth()->id()){
          # se extrae el rol actual del usuario autenticado
-         $role = DB::table('users')->select('role')->where('id',$userid);
-         # checa si el usuario tiene el
+         $role = DB::table('users')->select('role')->where('id',$userid)->value;
+         # checa si el usuario tiene el rol
          if($this->verifyUserRole($userid,$role)){
             $productos = DB::table('productos')->paginate(10);
             return view('tienda.productos', compact('productos'));
