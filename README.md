@@ -66,5 +66,5 @@ El archivo <code>routes/web.php</code> es un archivo de llamadas a metodos encar
    - **bootstrap templates**
       -> https://startbootstrap.com/admin-dashboard?showAngular=false&showPro=false<br>
 	   -> https://www.w3schools.com/bootstrap/bootstrap_templates.asp
-
+   - **formularios html** -> https://www.w3schools.com/html/html_form_elements.asp 
 

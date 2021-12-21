@@ -15,11 +15,10 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-
             $table->string('name',45)->notNull();
-            $table->text('desc')->notNull();            
-            $table->double('precio')->notNull();
-            $table->double('costo')->notNull();
+            $table->text('desc')->notNull();
+            $table->double('precio');
+            $table->double('costo');
             $table->timestamps();
         });
     }
