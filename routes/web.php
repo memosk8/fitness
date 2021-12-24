@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TiendaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,30 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-   return view('welcome');
-});
+/*
+ Cada vista es solicitada por el cliente a travéz de una ruta,
+ por lo que cada vista debe ser accesible por el usuario logeado
+ a travéz de al menos una ruta.
 
+ Rutas por crear(sugerido, cada quien puede decidir siempre y cuando se extienda del mismo layout):
+    tienda/almacen GET : muestra los mas recientes registros de ventas y productos desde la bd
+    tienda
+ */
+
+
+//se habilita la ruta de registro de nuevo usuario
 Auth::routes(['register' => True]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [TiendaController::class,'index'])->name('home')->middleware('auth');
+Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen')->middleware('auth');
 
-// TENER EN CUENTA EL ORDEN DE LAS RUTAS, YA QUE LARAVEL AL SER PHP COMIENZA A LEER EL ARCHIVO DE INICIO A FIN 
-// ENTONCES LAS RUTAS MAS ESPECIFICAS EJ: /TIENDA/PRODUCTOS/{id} DEBEN ESTAR ORDENADAS AL PRINCIPIO DEL ARCHIVO
-// Y LAS MENOS ESPECIFICAS EJ: /TIENDA DEBEN ESTAR AL FINAL, DE CIERTA FORMA DESCENDIENTE
+Route::get('/tienda/productos', [TiendaController::class,'indexProductos'])->name('productos')->middleware('auth');
 
-// la ruta del controlador debe ser completa y exactamente igual ¬¬
-// todas las rutas deben estar autenticadas
-Route::get('/tienda/productos', [App\Http\Controllers\ProductosController::class, 'index_productos'])
-   ->middleware('auth')->name('productos');
-//  mostrar la pagina de inicio de la tienda, como defecto redirige a la vista de ventas
-Route::get('/tienda', function () {
-   return redirect('/tienda/ventas');
-})->middleware('auth');
+Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas')->middleware('auth');
 
-Route::get('/tienda/ventas', [App\Http\Controllers\VentasController::class, 'index_ventas'])->middleware('auth')->name('ventas');
-
-
-/* Route::get('/tienda', function() {
-   return view('tienda.index');
-})->name("Tienda Fitness")->middleware('auth'); */
+Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion')->middleware('auth');

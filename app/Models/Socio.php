@@ -20,5 +20,9 @@ class Socio extends Model
         'calle','num_int','num_ext',
         'ciudad','estado','cp'
     ];
+
+    public function compra(){
+        return $this->hasMany(Venta::class);
+    }
     
 }

@@ -20,6 +20,7 @@ class CreateVentasTable extends Migration
             $table->integer('user_id')->notNull();
             $table->integer('producto')->notNull();
             $table->double('total')->notNull();
+            $table->integer('socio_id');
 
             $table->timestamps();
         });

@@ -15,11 +15,6 @@ class Almacen extends Model
      * @var string[]
      */
     protected $fillable = [
-        'producto','stock','centro'
+        'id','producto','stock'
     ];
-
-    public function productos(){
-        return $this->hasMany(Producto::class);
-    }
-
 }

@@ -13,13 +13,8 @@ class CreateAlmacensTable extends Migration
      */
     public function up()
     {
-        Schema::create('almacenes', function (Blueprint $table) {
+        Schema::create('almacens', function (Blueprint $table) {
             $table->id();
-
-            $table->string('producto', 45)->notNull();
-            $table->integer('stock');
-            $table->interface('centro')->notNull();
-
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ class CreateAlmacensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('almacenes');
+        Schema::dropIfExists('almacens');
     }
 }
