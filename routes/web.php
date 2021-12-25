@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => True]);
 
 Route::get('/', [TiendaController::class,'index'])->name('home')->middleware('auth');
+
 Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen')->middleware('auth');
 
 Route::get('/tienda/productos', [TiendaController::class,'indexProductos'])->name('productos')->middleware('auth');
