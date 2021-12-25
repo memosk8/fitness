@@ -28,6 +28,7 @@ class CreateSociosTable extends Migration
             $table->string('cp',5)->notNull();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

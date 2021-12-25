@@ -22,6 +22,7 @@ class CreatePromocionsTable extends Migration
             $table->date('fecha_fin')->notNull();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

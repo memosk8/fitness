@@ -23,6 +23,7 @@ class CreateVentasTable extends Migration
             $table->integer('socio_id');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

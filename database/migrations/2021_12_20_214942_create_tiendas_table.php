@@ -19,6 +19,7 @@ class CreateTiendasTable extends Migration
             $table->integer('centro')->notNull();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,6 +20,7 @@ class CreateImagensTable extends Migration
             $table->integer('producto');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

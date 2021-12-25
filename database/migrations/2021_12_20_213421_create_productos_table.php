@@ -22,6 +22,7 @@ class CreateProductosTable extends Migration
             $table->double('costo');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

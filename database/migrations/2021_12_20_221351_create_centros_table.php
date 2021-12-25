@@ -26,6 +26,7 @@ class CreateCentrosTable extends Migration
             $table->string('cp')->notNull();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

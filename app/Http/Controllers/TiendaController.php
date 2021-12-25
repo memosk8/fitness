@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Tienda;
 use App\Http\Requests\StoreTiendaRequest;
 use App\Http\Requests\UpdateTiendaRequest;
+use App\Models;
+use App\Models\Producto;
+use App\Models\Venta;
 
 class TiendaController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +20,21 @@ class TiendaController extends Controller
     public function index()
     {
         return view('tienda.index');
+    }
+
+    public function indexAlmacen(){
+        $almacen = Almacen::latest()->paginate(15);
+        return view('tienda.almacen',compact('almacen',));
+    }
+
+    public function indexProductos(){
+        $productos = Producto::latest()->paginate(15);
+        return view('tienda.productos',compact("productos"));
+    }
+
+    public function indexVentas(){
+        $ventas = Venta::latest()->paginate(5);
+        return view('tienda.almacen',compact('ventas',$ventas));
     }
 
     /**
