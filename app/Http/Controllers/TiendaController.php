@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Tienda;
 use App\Http\Requests\StoreTiendaRequest;
 use App\Http\Requests\UpdateTiendaRequest;
-use App\Models;
 use App\Models\Imagen;
 use App\Models\Producto;
 use App\Models\Venta;
