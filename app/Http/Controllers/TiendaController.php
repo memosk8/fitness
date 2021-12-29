@@ -6,6 +6,7 @@ use App\Models\Tienda;
 use App\Http\Requests\StoreTiendaRequest;
 use App\Http\Requests\UpdateTiendaRequest;
 use App\Models;
+use App\Models\Imagen;
 use App\Models\Producto;
 use App\Models\Venta;
 
@@ -28,13 +29,18 @@ class TiendaController extends Controller
     }
 
     public function indexProductos(){
-        $productos = Producto::latest()->paginate(15);
-        return view('tienda.productos',compact("productos"));
+        $productos = Producto::all();
+        $images = Imagen::all();
+        return view('tienda.productos',compact('productos', 'images' ));
     }
 
     public function indexVentas(){
         $ventas = Venta::latest()->paginate(5);
         return view('tienda.almacen',compact('ventas',$ventas));
+    }
+
+    public function registrarProducto(){
+        
     }
 
     /**

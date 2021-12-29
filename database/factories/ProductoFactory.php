@@ -14,7 +14,7 @@ class ProductoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            
         ];
     }
 }

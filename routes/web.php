@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 //se habilita la ruta de registro de nuevo usuario
 Auth::routes(['register' => True]);
 
+// -> todas las rutas deben usar el middleware auth para asegurar que solo los usuarios registrados puedan acceder
+
 Route::get('/', [TiendaController::class,'index'])->name('home')->middleware('auth');
 
 Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen')->middleware('auth');
