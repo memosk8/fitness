@@ -22,10 +22,11 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'nombre','apellidoPaterno',
+        'apellidoMaterno',
         'email',
-        'password',
-        'role'
+        'password'
+        // ,'rol'
     ];
 
     /**
@@ -47,6 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function center(){
+        return $this->belongsTo(Center::class);
+    }
 
     public function venta(){
         return $this->hasMany(Venta::class);

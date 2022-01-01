@@ -15,7 +15,8 @@ class CreateProductWarehouseTable extends Migration
     public function up()
     {
         Schema::create('product_warehouse', function (Blueprint $table) {
-            
+            $table->id();
+            $table->integer('stock')->nullable();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')
                 ->references('id')

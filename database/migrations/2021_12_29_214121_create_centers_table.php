@@ -15,7 +15,17 @@ class CreateCentersTable extends Migration
     {
         Schema::create('centers', function (Blueprint $table) {
             $table->id();
+            $table->boolean('active');
+            $table->string('nombre');
+            $table->string('calle');
+            $table->string('numExt');
+            $table->string('numInt');
+            $table->string('col');
+            $table->string('estado');
+            $table->string('ciudad');
+            $table->string('cp');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

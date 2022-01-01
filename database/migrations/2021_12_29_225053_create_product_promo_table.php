@@ -14,7 +14,7 @@ class CreateProductPromoTable extends Migration
     public function up()
     {
         Schema::create('product_promo', function (Blueprint $table) {
-
+            $table->id();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')
                 ->references('id')

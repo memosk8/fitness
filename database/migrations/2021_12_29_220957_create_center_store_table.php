@@ -15,7 +15,7 @@ class CreateCenterStoreTable extends Migration
     public function up()
     {
         Schema::create('center_store', function (Blueprint $table) {
-
+            $table->id();
             $table->unsignedBigInteger('center_id');
             $table->foreign('center_id')
                   ->references('id')

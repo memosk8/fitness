@@ -15,7 +15,7 @@ class CreateStoresTable extends Migration
    {
       Schema::create('stores', function (Blueprint $table) {
          $table->id();
-         $table->boolean('active');
+         $table->boolean('active')->default(1);;
          $table->timestamps();
          $table->softDeletes(); // añade un campo deleted_at
       });
