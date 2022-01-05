@@ -26,16 +26,16 @@ use Illuminate\Support\Facades\Route;
 
 
 //se habilita la ruta de registro de nuevo usuario
-Auth::routes(['register' => True]);
+Auth::routes(['register' => False]);
 
 // -> todas las rutas deben usar el middleware auth para asegurar que solo los usuarios registrados puedan acceder
 
-Route::get('/', [TiendaController::class,'index'])->name('home')->middleware('auth');
+Route::get('/', [TiendaController::class,'index'])->name('home');
 
-Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen')->middleware('auth');
+Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen');
 
-Route::get('/tienda/productos', [TiendaController::class,'indexProductos'])->name('productos')->middleware('auth');
+Route::get('/tienda/productos', [TiendaController::class,'indexProductos'])->name('productos');
 
-Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas')->middleware('auth');
+Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas');
 
-Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion')->middleware('auth');
+Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion');

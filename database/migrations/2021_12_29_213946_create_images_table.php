@@ -17,6 +17,7 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->longText('url');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

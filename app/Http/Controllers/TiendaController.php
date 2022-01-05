@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tienda;
+use App\Models\Warehouse;
 use App\Http\Requests\StoreTiendaRequest;
 use App\Http\Requests\UpdateTiendaRequest;
-use App\Models\Imagen;
-use App\Models\Producto;
-use App\Models\Venta;
+use App\Models\Image;
+use App\Models\Product;
+use App\Models\Sale;
 
 class TiendaController extends Controller
 {
@@ -23,19 +23,20 @@ class TiendaController extends Controller
     }
 
     public function indexAlmacen(){
-        $almacen = Almacen::latest()->paginate(15);
-        return view('tienda.almacen',compact('almacen',));
+        $almacen = Warehouse::latest()->paginate(15);
+        return view('tienda.almacen',compact('almacen',$almacen));
     }
 
     public function indexProductos(){
-        $productos = Producto::all();
-        $images = Imagen::all();
-        return view('tienda.productos',compact('productos', 'images' ));
+        $productos = Product::all();
+        $images = Image::all();
+        $stock = Product::count();
+        return view('tienda.productos',compact('productos', 'images','stock' ));
     }
 
     public function indexVentas(){
-        $ventas = Venta::latest()->paginate(5);
-        return view('tienda.almacen',compact('ventas',$ventas));
+        $ventas = Sale::latest()->paginate(5);
+        return view('tienda.ventas',compact('ventas',$ventas));
     }
 
     public function registrarProducto(){
