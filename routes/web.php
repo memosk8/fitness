@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\TiendaController;
+use App\Http\Controllers\CustomAuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TiendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,28 +15,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
- Cada vista es solicitada por el cliente a travéz de una ruta,
- por lo que cada vista debe ser accesible por el usuario logeado
- a travéz de al menos una ruta.
-
- Rutas por crear(sugerido, cada quien puede decidir siempre y cuando se extienda del mismo layout):
-    tienda/almacen GET : muestra los mas recientes registros de ventas y productos desde la bd
-    tienda
- */
-
-
 //se habilita la ruta de registro de nuevo usuario
-Auth::routes(['register' => False]);
+Auth::routes(['register' => True]);
 
-// -> todas las rutas deben usar el middleware auth para asegurar que solo los usuarios registrados puedan acceder
+Route::get('/login',[CustomAuthController::class,'login']);
 
-Route::get('/', [TiendaController::class,'index'])->name('home');
+Route::get('/registro',[CustomAuthController::class,'registro'])->name('registro');
+
+Route::get('/tienda', [TiendaController::class,'index'])->name('tiendaHome');
 
 Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen');
 
 Route::get('/tienda/productos', [TiendaController::class,'indexProductos'])->name('productos');
 
+Route::get('/tienda/productos/nuevo', [TiendaController::class,'nuevoProductoForm'])->name('productos.nuevo');
+
+Route::post('/tienda/productos/registro',[TiendaController::class,'registrarProducto'])->name('productos.registro');
+
+Route::get('/tienda/producto/{id}',[TiendaController::class,'showProducto'])->name('productos.ver');
+
 Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas');
 
+Route::get('/tienda/venta/{id}',[TiendaController::class,'showVenta'])->name('showVenta');
+
 Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion');
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

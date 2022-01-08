@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Warehouse;
-use App\Http\Requests\StoreTiendaRequest;
-use App\Http\Requests\UpdateTiendaRequest;
+use App\Http\Requests;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Sale;
+use Illuminate\Http\Request;
+
 
 class TiendaController extends Controller
 {
@@ -31,7 +32,7 @@ class TiendaController extends Controller
         $productos = Product::all();
         $images = Image::all();
         $stock = Product::count();
-        return view('tienda.productos',compact('productos', 'images','stock' ));
+        return view('tienda.productos.index', compact('productos','images','stock'));
     }
 
     public function indexVentas(){
@@ -39,8 +40,23 @@ class TiendaController extends Controller
         return view('tienda.ventas',compact('ventas',$ventas));
     }
 
-    public function registrarProducto(){
-        
+    public function nuevoProductoForm(){
+        return view('tienda.productos.create');
+    }
+
+    // se encarga de guardar un nuevo producto en la bd 
+    public function registrarProducto(Request $req){
+
+
+        $producto = new Product();
+        $producto->nombre = $req->input('nombre');
+        $producto->desc = $req->input('desc');
+        $producto->precio = $req->input('precio');
+        $producto->costo = $req->input('costo');
+        $producto->active = True;
+        $producto->save();
+
+        return redirect('/tienda/productos');
     }
 
     /**
@@ -50,7 +66,7 @@ class TiendaController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

@@ -22,7 +22,7 @@ class Controller extends BaseController
     */
     public function verifyUserRole($userid, $role)
     {
-      $userRole = DB::table('users')->select('role')->where('id',$userid)->value();
+      $userRole = DB::table('users')->select('role')->where('id',$userid)->value('id');
       $module = ($userRole==$role) ? true : false;
       return $module;
     }

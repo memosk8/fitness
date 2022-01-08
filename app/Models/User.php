@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,8 +24,8 @@ class User extends Authenticatable
         'nombre','apellidoPaterno',
         'apellidoMaterno',
         'email',
-        'password'
-        // ,'rol'
+        'password',
+        'rol'
     ];
 
     /**
@@ -39,21 +38,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     public function center(){
         return $this->belongsTo(Center::class);
     }
 
-    public function venta(){
-        return $this->hasMany(Venta::class);
+    public function sale(){
+        return $this->hasMany(Sale::class);
     }
 
 }
