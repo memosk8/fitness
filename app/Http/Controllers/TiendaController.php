@@ -32,7 +32,7 @@ class TiendaController extends Controller
         $productos = Product::all();
         $images = Image::all();
         $stock = Product::count();
-        return view('tienda.productos.index', compact('productos','images','stock'));
+        return view('tienda.almacen', compact('productos','images','stock'));
     }
 
     public function indexVentas(){

@@ -7,16 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="Guillermo López">
 
-    <title>Fitness Salud </title>
+    <title>Fitness Salud - @yield('title')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
 </head>
 
-<body class="bg-black bg-opacity-50">
+<body class="bg-light bg-opacity-50">
     <nav class="nav navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 m-1 rounded-pill">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0 m-2 text-md-center text-uppercase" href="#">Fitness Salud</a>
         <div class="nav-item">

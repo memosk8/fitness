@@ -18,9 +18,14 @@ use App\Http\Controllers\TiendaController;
 //se habilita la ruta de registro de nuevo usuario
 Auth::routes(['register' => True]);
 
-Route::get('/login',[CustomAuthController::class,'login']);
+Route::get('/', function(){
+    return redirect('/tienda');
+});
+
+Route::get('/login',[CustomAuthController::class,'login'])->name('login');
 
 Route::get('/registro',[CustomAuthController::class,'registro'])->name('registro');
+Route::post('/registroUsuario',[CustomAuthController::class,'nuevoUsuario'])->name('registro.usuario');
 
 Route::get('/tienda', [TiendaController::class,'index'])->name('tiendaHome');
 
