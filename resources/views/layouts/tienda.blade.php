@@ -7,6 +7,11 @@
     <meta name="description" content="">
     <meta name="author" content="Guillermo López">
 
+    <style>
+        hr{
+            padding: 5px;
+        }
+    </style>
     <title>Fitness Salud - @yield('title')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,9 +19,9 @@
 
 </head>
 
-<body class="bg-light bg-opacity-50">
+<body class="bg-light bg-opacity-50 mb-5">
     <nav class="nav navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 m-1 rounded-pill">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0 m-2 text-md-center text-uppercase" href="#">Fitness Salud</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0 m-2 text-md-center text-uppercase" href="{{ route('tiendaHome') }}">Fitness Salud</a>
         <div class="nav-item">
             <a class="nav-link" href="{{ url('/tienda/ventas') }}">
                 <span data-feather="file"></span>
@@ -37,7 +42,10 @@
             </a>
         </div>
         <div>
-
+            <a class="nav-link" href="{{ url('/tienda/productos/nuevo') }}">
+               
+                Registro de productos
+            </a>
         </div>
 
         <input class="form-control form-control-dark w-25 text-center nav-item" type="text" placeholder="Buscar . . ."

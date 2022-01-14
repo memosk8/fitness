@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSocioRequest extends FormRequest
+class ProductoFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,19 @@ class StoreSocioRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+            'nombre' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'desc' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'precio' => 'required',
+            'costo' => 'required',
         ];
     }
 }

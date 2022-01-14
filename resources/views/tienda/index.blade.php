@@ -7,29 +7,13 @@
         <div class="row content">
 
             <div class="col-sm-8 col-md-12 text-center">
-                <h1>Welcome</h1>
-                <table class="table">
-                    <tr>
-                        <th>Header</th>
-                    </tr>
-                </table>
+                <h1>Inicio</h1>
+                
                 <hr>
-                <h3>Test</h3>
-                <p>Lorem ipsum...</p>
+                <h3>Productos </h3>
+                
             </div>
-            <div class="col-sm-2 sidenav ">
-                <div class="well">
-                    <p>ADS</p>
-                </div>
-                <div class="well">
-                    <p>ADS</p>
-                </div>
-                <div>divs</div>
-                <div>divs</div>
-                <div>divs</div>
-                <div>divs</div>
-                <div>divs</div>
-            </div>
+            
         </div>
     </div>
 

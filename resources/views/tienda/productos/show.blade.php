@@ -3,7 +3,7 @@
 @section('main-content')
     <div class="row">
         <div class="col-md-12">
-            <h1>Productos en existencia</h1>
+            <h1></h1>
         </div>
         <div class="col-md-12">
             <div class="card" style="width: 100%">
@@ -14,7 +14,11 @@
                                 alt="{{ $image->name }}">
                         </div> --}}
 
-                    <h5 class="card-title pt-4">Precio: {{ $producto->precio }}</h5>
+                        <div class="container">
+                            <h2>{{ $producto }}</h2>
+                        </div>
+
+                    {{-- <h5 class="card-title pt-4">Precio: {{ $producto->nombre }}</h5>
 
                     <p class="card-text">
                         Nombre: {{ $producto->nombre }}
@@ -24,7 +28,7 @@
                     </p>
                     <p class="card-text">
                         En stock: {{ $stock }}
-                    </p>
+                    </p>     --}}
 
                     <a href="/tienda/productos/" class="btn btn-outline-primary">Volver atrás</a>
                 </div>

@@ -22,14 +22,19 @@ Route::get('/', function(){
     return redirect('/tienda');
 });
 
+// Route::post('registro',[CustomAuthController::class, 'nuevoUsuario']);
+
 Route::get('/login',[CustomAuthController::class,'login'])->name('login');
 
 Route::get('/registro',[CustomAuthController::class,'registro'])->name('registro');
-Route::post('/registroUsuario',[CustomAuthController::class,'nuevoUsuario'])->name('registro.usuario');
+
+Route::post('/nuevoUsuario',[CustomAuthController::class,'nuevoUsuario'])->name('nuevo');
 
 Route::get('/tienda', [TiendaController::class,'index'])->name('tiendaHome');
 
 Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen');
+
+/* PRODUCTOS */
 
 Route::get('/tienda/productos', [TiendaController::class,'indexProductos'])->name('productos');
 
@@ -37,11 +42,22 @@ Route::get('/tienda/productos/nuevo', [TiendaController::class,'nuevoProductoFor
 
 Route::post('/tienda/productos/registro',[TiendaController::class,'registrarProducto'])->name('productos.registro');
 
-Route::get('/tienda/producto/{id}',[TiendaController::class,'showProducto'])->name('productos.ver');
+Route::get('tienda/productos/actualizar/{id}',[TiendaController::class,'updateProductoForm'])->name('producto.update.form');
+
+Route::post('/tienda/producto/update',[TiendaController::class,'updateProducto'])->name('productos.update');
+
+Route::post('/tienda/productos/eliminar',[TiendaController::class,'deleteProducto'])->name('productos.eliminar');
+
+Route::get('/tienda/producto/{id}',[TiendaController::class,'verProducto'])->name('productos.ver');
+
+
+/* VENTAS */
 
 Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas');
 
-Route::get('/tienda/venta/{id}',[TiendaController::class,'showVenta'])->name('showVenta');
+ROute::get('tienda/ventas/nueva',[TiendaController::class, 'nuevaVentaForm'])->name('ventas.nueva');
+
+Route::get('/tienda/venta/{id}',[TiendaController::class,'showVenta'])->name('ventas.ver');
 
 Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion');
 

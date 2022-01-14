@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductoFormRequest;
+use App\Http\Requests\UserPostRequest;
 use App\Models\Warehouse;
-use App\Http\Requests;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class TiendaController extends Controller
 {
@@ -23,50 +24,73 @@ class TiendaController extends Controller
         return view('tienda.index');
     }
 
-    public function indexAlmacen(){
+    public function indexAlmacen()
+    {
         $almacen = Warehouse::latest()->paginate(15);
-        return view('tienda.almacen',compact('almacen',$almacen));
+        return view('tienda.almacen', compact('almacen', $almacen));
     }
 
-    public function indexProductos(){
+    public function indexProductos()
+    {
         $productos = Product::all();
         $images = Image::all();
         $stock = Product::count();
-        return view('tienda.almacen', compact('productos','images','stock'));
+        return view('tienda.productos.index', compact('productos', 'images', 'stock'));
     }
 
-    public function indexVentas(){
+    public function indexVentas()
+    {
         $ventas = Sale::latest()->paginate(5);
-        return view('tienda.ventas',compact('ventas',$ventas));
+        return view('tienda.ventas', compact('ventas', $ventas));
     }
 
-    public function nuevoProductoForm(){
+    public function nuevoProductoForm()
+    {
         return view('tienda.productos.create');
     }
 
     // se encarga de guardar un nuevo producto en la bd 
-    public function registrarProducto(Request $req){
-
-
-        $producto = new Product();
-        $producto->nombre = $req->input('nombre');
-        $producto->desc = $req->input('desc');
-        $producto->precio = $req->input('precio');
-        $producto->costo = $req->input('costo');
+    public function registrarProducto(ProductoFormRequest $req)
+    {
+        // se valida la solicitud de registro de nuevo producto
+        // usando $req que es una instancia de ProductoFormRequest
+        $validated_data = $req->validated();
+        $producto = new Product($req->all());
         $producto->active = True;
         $producto->save();
 
         return redirect('/tienda/productos');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function verProducto($id){
+        $producto = Product::find($id);
+        return view('tienda.productos.show',compact('producto',$producto));
+    }
 
+    public function updateProductoForm(Request $req, $id){
+
+        // validamos la nueva solicitud post para productos
+        // $validated_prod = $req->validated();
+
+        // encontramos el producto con el id 
+        $producto = Product::find($id);
+
+        // actualizamos ese producto con las variables del formulario update 
+        $producto->update($req->all());
+
+        // respondemos con el mismo formulario, pero ahora los valores van a ser leidos desde el servidor
+        return view('tienda.productos.update', compact('producto',$producto));
+    }
+
+    public function updateProducto(ProductoFormRequest $req, Product $producto)
+    {
+        $validado = $req->validated();
+
+        $updated = $producto->update($validado);
+
+        if($updated) return redirect()->back()->with('success', 'Producto actualizado');
+
+        else return redirect()->back()->with('fail', 'No se pudo actualizar el producto');
     }
 
     /**
@@ -80,48 +104,8 @@ class TiendaController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tienda  $tienda
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tienda $tienda)
+    public function deleteProducto(Product $producto)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tienda  $tienda
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tienda $tienda)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTiendaRequest  $request
-     * @param  \App\Models\Tienda  $tienda
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTiendaRequest $request, Tienda $tienda)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tienda  $tienda
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tienda $tienda)
-    {
-        //
+        
     }
 }
