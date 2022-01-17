@@ -20,7 +20,7 @@
 </head>
 
 <body class="bg-light bg-opacity-50 mb-5">
-    <nav class="nav navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 m-1 rounded-pill">
+    <nav class="nav navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 ">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0 m-2 text-md-center text-uppercase" href="{{ route('tiendaHome') }}">Fitness Salud</a>
         <div class="nav-item">
             <a class="nav-link" href="{{ url('/tienda/ventas') }}">
@@ -43,7 +43,6 @@
         </div>
         <div>
             <a class="nav-link" href="{{ url('/tienda/productos/nuevo') }}">
-               
                 Registro de productos
             </a>
         </div>
@@ -51,7 +50,7 @@
         <input class="form-control form-control-dark w-25 text-center nav-item" type="text" placeholder="Buscar . . ."
             aria-label="Search">
 
-        <a class="nav-link" href="#">Salir</a>
+        {{-- <a class="nav-link" href="#">Salir</a> --}}
 
 
     </nav>

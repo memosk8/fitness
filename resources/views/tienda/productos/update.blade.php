@@ -17,7 +17,9 @@
                                 <label for="desc" class="card-title m-2">Nombre del producto</label>
                                 <input type="text" name="nombre" class="input-group" required value="{{ $producto }}">
                             </div>
-
+                            @error('nombre')
+                                <a>Error con el nombre</a>
+                            @enderror
                             <br>
                             <div class="form-control border-4 input-group-text">
                                 <label for="desc" class="card-title m-2">Descripción</label>

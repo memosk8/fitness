@@ -5,6 +5,8 @@
         <div class="col-md-12 p-3">
             <h1 class=" text-center bg-light p-2 mx-md-5">Productos en existencia</h1>
         </div>
+
+        {{-- {{ $productos[0]->almacen }} --}}
         <div class="col-md-12">
             <div class="card" style="width: 100%">
                 <div class="card-body ">
@@ -28,12 +30,14 @@
                     <table class="table table-bordered table-sm table-striped text-center">
 
                         <thead>
-                            <tr class="bg-info ">
+                            <tr class="bg-primary bg-opacity-50 ">
                                 <th scope="col"># ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Costo</th>
+                                <th scope="col">Almacén</th>
+                                <th scope="col">Fecha registro</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,6 +48,8 @@
                                     <td>{{ $producto->desc }}</td>
                                     <td>{{ $producto->precio }}</td>
                                     <td>{{ $producto->costo }}</td>
+                                    <td>{{ $producto->almacen }}</td>
+                                    <td>{{ $producto->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
