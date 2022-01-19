@@ -15,7 +15,7 @@
                         </div> --}}
 
                         <div class="container">
-                            <h2>{{ $producto }}</h2>
+                            <h2>{{ $producto->nombre }}</h2>
                         </div>
 
                     {{-- <h5 class="card-title pt-4">Precio: {{ $producto->nombre }}</h5>
@@ -27,7 +27,7 @@
                         Costo: {{ $producto->costo }}
                     </p>
                     <p class="card-text">
-                        En stock: {{ $stock }}
+                        En stock: {{ DB::table('product_warehouse')->select('stock')->where('product_id',$producto->id) }}
                     </p>     --}}
 
                     <a href="/tienda/productos/" class="btn btn-outline-primary">Volver atrás</a>

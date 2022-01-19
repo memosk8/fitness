@@ -46,7 +46,7 @@ Route::get('/tienda/productos/actualizar/{id}',[TiendaController::class,'updateP
 
 Route::put('/tienda/producto/update/{id}',[TiendaController::class,'updateProducto'])->name('productos.update');
 
-Route::post('/tienda/productos/eliminar/',[TiendaController::class,'deleteProducto'])->name('productos.eliminar');
+Route::delete('/tienda/productos/eliminar/{id}',[TiendaController::class,'deleteProducto'])->name('productos.eliminar');
 
 Route::post('/tienda/productos/buscar',[TiendaController::class, 'buscarProducto'])->name('productos.buscar');
 

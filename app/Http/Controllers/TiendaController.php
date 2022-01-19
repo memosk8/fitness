@@ -29,17 +29,19 @@ class TiendaController extends Controller
 
    public function indexProductos()
    {
-      $productos = Product::all();
+      $productos = DB::table('products')->where('active',1)->get();
 
       // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
       // no seas pendejo cabrón
       foreach ($productos as $producto) {
-         $almacenProducto = DB::table('product_warehouse')
-            ->select('warehouse_id')
-            ->where('product_id', '=', $producto->id)
-            ->get();
-         $producto->almacen = $almacenProducto[0]->warehouse_id;
+         if($producto->active != 0){
+            $almacenProducto = DB::table('product_warehouse')
+               ->select('warehouse_id')
+               ->where('product_id', '=', $producto->id)
+               ->get();
+            $producto->almacen = $almacenProducto[0]->warehouse_id;
+         }
       }
 
       return view('tienda.productos.index', compact('productos'));
@@ -136,7 +138,7 @@ class TiendaController extends Controller
             'warehouse_id' => $req->input('almacen')
          ]);
 
-      return redirect()->back();
+      return redirect()->route('productos');
    }
 
    public function buscarProducto(Request $req)
@@ -146,9 +148,14 @@ class TiendaController extends Controller
       // return view('tienda.productos.show', compact('busqueda'));
    }
 
-   public function deleteProducto(Product $producto)
+   public function deleteProducto($id)
    {
-      $producto->destroy($producto->id);
+      DB::table('product_warehouse')->where('product_id',$id)->delete();
+      
+      DB::table('products')->update([
+         'active'     => 0,
+         'deleted_at' => Date::now()->toDateTimeString(),
+      ]);
       return redirect()->route('productos');
    }
 }
