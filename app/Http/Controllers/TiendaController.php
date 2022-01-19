@@ -8,6 +8,7 @@ use App\Models\Warehouse;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Sale;
+use GuzzleHttp\RedirectMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,11 +16,6 @@ use Illuminate\Support\Facades\DB;
 class TiendaController extends Controller
 {
 
-   /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
    public function index()
    {
       return view('tienda.index');
@@ -35,12 +31,13 @@ class TiendaController extends Controller
    {
       $productos = Product::all();
 
-      // a cada uno de los productos se le concatena
+      // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
+      // no seas pendejo cabrón
       foreach ($productos as $producto) {
          $almacenProducto = DB::table('product_warehouse')
             ->select('warehouse_id')
-            ->where('product_id','=',$producto->id)
+            ->where('product_id', '=', $producto->id)
             ->get();
          $producto->almacen = $almacenProducto[0]->warehouse_id;
       }
@@ -69,8 +66,11 @@ class TiendaController extends Controller
          'nombre' => ['required', 'string', 'max:100'],
          'desc' => ['required', 'string', 'max:255'],
          'precio' => 'numeric',
-         'costo' => 'numeric'
+         'costo' => 'numeric',
+         'almacen' => 'numeric',
+         'stock' => 'numeric'
       ]);
+
       // se crea un nuevo producto con la solicitud validada
       $producto = new Product($validated_data);
       $producto->active = True;
@@ -96,37 +96,59 @@ class TiendaController extends Controller
 
    public function updateProductoForm(Request $req, $id)
    {
-
-      // validamos la nueva solicitud
-      $validated_prod = $req->validate([
-         'nombre' => ['required', 'string', 'max:100'],
-         'desc' => ['required', 'string', 'max:255'],
-         'precio' => 'numeric',
-         'costo' => 'numeric'
-      ]);
-
       // encontramos el producto con el id 
       $producto = Product::find($id);
 
       // actualizamos ese producto con las variables del formulario update 
       $producto->update($req->all());
 
+      $almacenProducto = DB::table('product_warehouse')
+         ->select('warehouse_id', 'stock')
+         ->where('product_id', '=', $producto->id)
+         ->get();
+      $producto->almacen = $almacenProducto[0]->warehouse_id;
+      $producto->stock = $almacenProducto[0]->stock;
+
       // respondemos con el mismo formulario, pero ahora los valores van a ser leidos desde el servidor
       return view('tienda.productos.update', compact('producto', $producto));
    }
 
-   public function updateProducto(ProductoFormRequest $req, Product $producto)
+   public function updateProducto(Request $req, $id)
    {
-      $validado = $req->validated();
+      // selecciona products en la db 
+      DB::table('products')
+         // donde está este id
+         ->where('id',$id)
+         // y actualiza COLUMNA => VALOR
+         ->update([
+            'nombre' => $req->input('nombre'),
+            'desc'   => $req->input('desc'),
+            'precio' => $req->input('precio'),
+            'costo'  => $req->input('costo'),
+            'updated_at' => Date::now()->toDateTimeString()
+         ]);
 
-      $updated = $producto->update($validado);
+      DB::table('product_warehouse')
+         ->where('product_id',$id)
+         ->update([
+            'stock'        => $req->input('stock'),
+            'product_id'   => $id,
+            'warehouse_id' => $req->input('almacen')
+         ]);
 
-      if ($updated) return redirect()->back()->with('success', 'Producto actualizado');
+      return redirect()->back();
+   }
 
-      else return redirect()->back()->with('fail', 'No se pudo actualizar el producto');
+   public function buscarProducto(Request $req)
+   {
+      // $busqueda = $req->input('search');
+
+      // return view('tienda.productos.show', compact('busqueda'));
    }
 
    public function deleteProducto(Product $producto)
    {
+      $producto->destroy($producto->id);
+      return redirect()->route('productos');
    }
 }

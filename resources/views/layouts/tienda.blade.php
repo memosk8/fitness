@@ -8,9 +8,10 @@
     <meta name="author" content="Guillermo López">
 
     <style>
-        hr{
+        hr {
             padding: 5px;
         }
+
     </style>
     <title>Fitness Salud - @yield('title')</title>
 
@@ -19,36 +20,34 @@
 
 </head>
 
-<body class="bg-light bg-opacity-50 mb-5">
-    <nav class="nav navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 ">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0 m-2 text-md-center text-uppercase" href="{{ route('tiendaHome') }}">Fitness Salud</a>
-        <div class="nav-item">
-            <a class="nav-link" href="{{ url('/tienda/ventas') }}">
-                <span data-feather="file"></span>
-                Ventas
-            </a>
-        </div>
+<body class="bg-dark bg-opacity-25 mb-5">
 
-        <div>
-            <a class="nav-link" href="{{ url('/tienda/productos') }}">
-                <span data-feather="shopping-cart"></span>
-                Productos
-            </a>
-        </div>
-        <div>
-            <a class="nav-link" href="{{ url('/tienda/clientes') }}">
-                <span data-feather="users"></span>
-                Clientes
-            </a>
-        </div>
-        <div>
-            <a class="nav-link" href="{{ url('/tienda/productos/nuevo') }}">
-                Registro de productos
-            </a>
-        </div>
+    <nav class="navbar navbar-light sticky-top navbar-expand-md bg-light text-white ">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0 m-2 text-md-center text-uppercase bg-light bg-opacity-25"
+            href="{{ route('tiendaHome') }}">Fitness Salud</a>
+        <ul class="navbar-nav text-center ms-auto  bg-opacity-25 ">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/tienda/ventas') }}">
+                    <span data-feather="dollar-sign"></span>
+                    Ventas
+                </a>
+            </li>
 
-        <input class="form-control form-control-dark w-25 text-center nav-item" type="text" placeholder="Buscar . . ."
-            aria-label="Search">
+            <li class="px-3">
+                <a class="nav-link" href="{{ url('/tienda/productos') }}">
+                    <span data-feather="shopping-cart" class="border-1 border-dark"></span>
+                    Productos
+                </a>
+            </li>
+            <li >
+                <a class="nav-link " href="{{ url('/tienda/clientes') }}">
+                    <span data-feather="users" class="border-1"></span>
+                    Clientes
+                </a>
+            </li>
+
+        </ul>
+
 
         {{-- <a class="nav-link" href="#">Salir</a> --}}
 

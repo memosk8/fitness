@@ -42,11 +42,13 @@ Route::get('/tienda/productos/nuevo', [TiendaController::class,'nuevoProductoFor
 
 Route::post('/tienda/productos/registro',[TiendaController::class,'registrarProducto'])->name('productos.registro');
 
-Route::get('tienda/productos/actualizar/{id}',[TiendaController::class,'updateProductoForm'])->name('producto.update.form');
+Route::get('/tienda/productos/actualizar/{id}',[TiendaController::class,'updateProductoForm'])->name('producto.update.form');
 
-Route::post('/tienda/producto/update',[TiendaController::class,'updateProducto'])->name('productos.update');
+Route::put('/tienda/producto/update/{id}',[TiendaController::class,'updateProducto'])->name('productos.update');
 
-Route::post('/tienda/productos/eliminar',[TiendaController::class,'deleteProducto'])->name('productos.eliminar');
+Route::post('/tienda/productos/eliminar/',[TiendaController::class,'deleteProducto'])->name('productos.eliminar');
+
+Route::post('/tienda/productos/buscar',[TiendaController::class, 'buscarProducto'])->name('productos.buscar');
 
 Route::get('/tienda/producto/{id}',[TiendaController::class,'verProducto'])->name('productos.ver');
 
