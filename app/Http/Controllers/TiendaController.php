@@ -31,6 +31,7 @@ class TiendaController extends Controller
    {
       $productos = DB::table('products')->where('active',1)->get();
 
+      $count = 1;
       // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
       // no seas pendejo cabrón
@@ -44,7 +45,7 @@ class TiendaController extends Controller
          }
       }
 
-      return view('tienda.productos.index', compact('productos'));
+      return view('tienda.productos.index', compact('productos','count'));
    }
 
    public function indexVentas()
