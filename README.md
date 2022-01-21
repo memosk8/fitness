@@ -32,7 +32,7 @@ Para ello debemos modificar cada uno de los modelos ubicados en la ruta del proy
 Al momento de crear un nuevo proyecto de laravel, en la carpeta app/Models podemos encontrar algunos archivos generados para trabajar directamente sobre ellos.   
 Como ejemplo para esta demostración, se ha propone una estructura de carpetas la cual no debería ser modificada y si debería ser considerada al momento de trabajar con los modelos, que nos puede servir para simplificar el objetivo de incorporar los módulos en lugar de realizar un proyecto nuevo para cada módulo.
 
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/x2ST6yz/workfolder-structure.jpg" alt="workfolder-structure" border="0"></a>
+<a href="https://ibb.co/rw0Z8R3"><img src="https://ibb.co/rw0Z8R3" alt="workfolder-structure" border="0"></a>
 
 De esta forma, cada modulo podrá trabajar en su propia carpeta de modelos, controladores, migraciones y vistas
 
