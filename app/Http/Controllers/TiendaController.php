@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductoFormRequest;
-use App\Http\Requests\UserPostRequest;
 use App\Models\Warehouse;
-use App\Models\Image;
 use App\Models\Product;
 use App\Models\Sale;
-use GuzzleHttp\RedirectMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -85,7 +81,7 @@ class TiendaController extends Controller
          'stock' => $req->input('stock'),
          'product_id' => $producto->id,
          'warehouse_id' => $req->input('almacen'),
-         'created_at' => Date::now()
+         'created_at' => Date::now()->toDateTimeLocalString()
       ]);
 
       return redirect('/tienda/productos');
