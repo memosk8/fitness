@@ -1,5 +1,7 @@
+
 const headerLinks = Array.from(document.querySelectorAll(".table-sortable th"));
-headerLinks.pop();
+headerLinks.pop();// elimino la ultima columna (opciones) ya que no tiene valores para ordenar
+
 /**
  * Sorts a HTML table.
  * 
@@ -17,13 +19,8 @@ function sortTableByColumn(table, column, asc = true) {
       var aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
       var bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
 
-      if(Number(aColText)){
-         aColText = parseInt(aColText)
-      }
-
-      if(Number(bColText)){
-         bColText = parseInt(bColText)
-      }
+      if(Number(aColText)) aColText = parseInt(aColText);
+      if(Number(bColText)) bColText = parseInt(bColText);
 
       return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
    });
