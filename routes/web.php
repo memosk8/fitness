@@ -16,21 +16,19 @@ use App\Http\Controllers\TiendaController;
 */
 
 //se habilita la ruta de registro de nuevo usuario
-// Auth::routes(['register' => True]);
+Auth::routes(['register' => True]);
 
 Route::get('/', function(){
     return redirect('/tienda');
 });
-   
+
 // Route::post('registro',[CustomAuthController::class, 'nuevoUsuario']);
 
 Route::get('/login',[CustomAuthController::class,'login'])->name('login');
 
-Route::get('/registro',[CustomAuthController::class,'registro'])->name('user.register.form');
+Route::get('/registro',[CustomAuthController::class,'registro'])->name('registro');
 
-Route::post('/nuevoUsuario',[CustomAuthController::class,'nuevoUsuario'])->name('user.create');
-
-Route::post('/check', [CustomAuthController::class, 'check'])->name('user.check');
+Route::post('/nuevoUsuario',[CustomAuthController::class,'nuevoUsuario'])->name('nuevo');
 
 Route::get('/tienda', [TiendaController::class,'index'])->name('tiendaHome');
 
@@ -55,6 +53,26 @@ Route::post('/tienda/productos/buscar',[TiendaController::class, 'buscarProducto
 Route::get('/tienda/producto/{id}',[TiendaController::class,'verProducto'])->name('productos.ver');
 
 
+//clientes
+Route::get('/tienda/clientes', [TiendaController::class,'indexClientes'])->name('clientes');
+
+Route::get('/tienda/clientes/nuevo', [TiendaController::class,'nuevoClienteForm'])->name('clientes.nuevo');
+
+Route::post('/tienda/clientes/registro',[TiendaController::class,'registrarCliente'])->name('clientes.registro');
+
+Route::get('/tienda/clientes/actualizar/{id}',[TiendaController::class,'updateClienteForm'])->name('cliente.update.form');
+
+Route::put('/tienda/cliente/update/{id}',[TiendaController::class,'updateCliente'])->name('clientes.update');
+
+Route::delete('/tienda/clientes/eliminar/{id}',[TiendaController::class,'deleteCliente'])->name('clientes.eliminar');
+
+Route::post('/tienda/clientes/buscar',[TiendaController::class, 'buscarCliente'])->name('clientes.buscar');
+
+Route::get('/tienda/cliente/{id}',[TiendaController::class,'verCliente'])->name('clientes.ver');
+
+
+
+
 /* VENTAS */
 
 Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas');
@@ -65,6 +83,6 @@ Route::get('/tienda/venta/{id}',[TiendaController::class,'showVenta'])->name('ve
 
 Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion');
 
-Auth::routes();
+//Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
