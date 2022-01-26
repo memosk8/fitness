@@ -19,7 +19,7 @@ use App\Http\Controllers\TiendaController;
 // Auth::routes(['register' => True]);
 
 Route::get('/', function(){
-    return redirect('/tienda');
+    return redirect('/login');
 });
    
 // Route::post('registro',[CustomAuthController::class, 'nuevoUsuario']);
@@ -32,7 +32,7 @@ Route::post('/nuevoUsuario',[CustomAuthController::class,'nuevoUsuario'])->name(
 
 Route::post('/check', [CustomAuthController::class, 'check'])->name('user.check');
 
-Route::get('/tienda', [TiendaController::class,'index'])->name('tiendaHome');
+Route::get('/tienda/user', [CustomAuthController::class,'dashboard'])->name('user.session');
 
 Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen');
 

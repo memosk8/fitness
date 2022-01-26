@@ -86,8 +86,8 @@ class CustomAuthController extends Controller
       }
    }
 
-   function logeado(){
-      $data = ['LoggedUserInfo' => User::where('id',session('LoggedUser'))->first()];
-      return view('tienda.productos.index', $data);
+   function dashboard(){
+      $data = User::where('id',session('LoggedUser'))->first();
+      return view('auth.session', compact('data'));
    }
 }

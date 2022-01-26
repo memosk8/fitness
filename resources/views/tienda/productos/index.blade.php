@@ -1,5 +1,11 @@
 @extends('layouts.tienda')
 @section('title', 'Productos')
+@section('userName')
+<a class="nav-link " href="{{ route('user.session') }}">
+   <span data-feather="user" class="border-1"></span>
+   {{ $data->nombre}}
+</a>
+@endsection
 @section('main-content')
 <div class="row">
    <div class="col-12 p-1">
@@ -19,9 +25,9 @@
       <div class="card m-0 " style="width: 100%">
          <div class="card-body p-0 mx-2 ">
 
-            <table class="table table-sortable table-sm m-0 text-center border-1 border-dark p-1" >
+            <table class="table table-sortable table-sm m-0 text-center border-1 border-dark p-1">
 
-               <thead >
+               <thead>
                   <tr class="bg-primary bg-opacity-25 " id="header">
                      <th scope="col" class="border-start border-success"><a href="#"># ID</a></th>
                      <th scope="col" class="border-start border-success"><a href="#">Nombre</a></th>
@@ -36,7 +42,7 @@
                <tbody id="tbody">
                   @foreach ($productos as $producto)
                   <tr>
-                     <td class="border-bottom border-1 border-success" >{{ $producto->id }}</th>
+                     <td class="border-bottom border-1 border-success">{{ $producto->id }}</th>
                      <td class="border-bottom border-dark">{{ $producto->nombre }}</td>
                      <td class="border-bottom border-dark">{{ $producto->desc }}</td>
                      <td class="border-bottom border-dark">{{ $producto->precio }}</td>
@@ -54,7 +60,7 @@
                         </form>
                      </td>
                   </tr>
-                  
+
                   @endforeach
                </tbody>
             </table>

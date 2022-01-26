@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Warehouse;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -27,10 +28,12 @@ class TiendaController extends Controller
    {
       $productos = DB::table('products')->where('active',1)->get();
 
+      $data = User::where('id',session('LoggedUser'))->first();
+
       $count = 1;
       // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
-      // no seas pendejo cabrón
+
       foreach ($productos as $producto) {
          if($producto->active != 0){
             $almacenProducto = DB::table('product_warehouse')
@@ -41,7 +44,7 @@ class TiendaController extends Controller
          }
       }
 
-      return view('tienda.productos.index', compact('productos','count'));
+      return view('tienda.productos.index', compact('productos','data'));
    }
 
    public function indexVentas()
@@ -149,7 +152,7 @@ class TiendaController extends Controller
    {
       DB::table('product_warehouse')->where('product_id',$id)->delete();
       
-      DB::table('products')->update([
+      DB::table('products')->where('id',$id)->update([
          'active'     => 0,
          'deleted_at' => Date::now()->toDateTimeString(),
       ]);
