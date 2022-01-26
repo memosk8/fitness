@@ -6,6 +6,8 @@ use App\Models\Warehouse;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
+use App\Models\Promo;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +53,11 @@ class TiendaController extends Controller
    {
       $ventas = Sale::latest()->paginate(5);
       return view('tienda.ventas', compact('ventas', $ventas));
+   }
+
+   public function indexPromocion(Request $request){
+      $promociones = Promo::all();
+      return view('tienda.promociones',compact('promociones'));
    }
 
    public function nuevoProductoForm()
@@ -158,4 +165,63 @@ class TiendaController extends Controller
       ]);
       return redirect()->route('productos');
    }
+
+   //By Marisol Benitez
+   public function newPromo(Request $request){
+      $promo = new Promo();
+      $promo->center_name = $request->input('center_name');
+      $promo->product_name = $request->input('product_name');
+      $promo->price = $request->input('price');
+      $promo->month = $request->input('month');
+      $promo->status=True;
+      $promo->save();
+      
+      return redirect('tienda/promocion');
+  }
+
+  public function viewPromo(){
+      $promo = Promo::select('center_name')->get();
+      return redirect('tienda/promocion');
+  }
+
+  public function PromoForm()
+  {
+   $centers = DB::table('centers')->select('nombre')->get();
+   $products = DB::table('products')->select('nombre')->get();
+
+   return view('tienda.promociones.registrar',compact('centers','products'));
+  }
+
+  public function editPromo($id){
+   $promociones = Promo::find($id);
+   $centers = DB::table('centers')->select('nombre')->get();
+   $products = DB::table('products')->select('nombre')->get();
+   return view('tienda.promociones.editar',compact('promociones','centers','products'));
+  }
+
+  public function updatePromo(Request $request, $id){
+  
+  DB::table('promos')
+  
+  ->where('id',$id)
+  
+  ->update([
+     
+     'center_name'   => $request->input('center_name'),
+     'product_name' => $request->input('product_name'),
+     'price'  => $request->input('price'),
+     'month'  => $request->input('month'),
+     'updated_at' => Date::now()->toDateTimeString()
+  ]);
+
+  
+   return redirect('tienda/promocion');
+  }
+  
+  public function destroyPromo($id){
+   $promocion = Promo::find($id);
+   $promocion->delete();
+   return redirect('tienda/promocion');
+      
+  }
 }

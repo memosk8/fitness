@@ -9,15 +9,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Promo extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
-        'active', 'procentaje',
-        'fechaInicio', 'fechaFin'
+        'status', 'center_name', 'product_name',
+        'price', 'month'
     ];
 
     public function product(){
         return $this->hasOne(Product::class);
+    }
+
+    public function center(){
+        return $this->hasOne(Center::class);
     }
 
 }

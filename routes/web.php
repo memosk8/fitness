@@ -65,6 +65,20 @@ Route::get('/tienda/venta/{id}',[TiendaController::class,'showVenta'])->name('ve
 
 Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion');
 
+/* PROMOCIONES */
+
+Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promociones.index');
+
+Route::get('/tienda/promociones/registrar', [TiendaController::class, 'PromoForm'])->name('promociones.reg');
+
+Route::get('/tienda/promocion/create', [TiendaController::class, 'newPromo'])->name('promociones.create');
+
+Route::get('/tienda/promocion/destroy/{id}', [TiendaController::class, 'destroyPromo'])->name('promociones.destroy');
+
+Route::get('/tienda/promociones/editar/{id}', [TiendaController::class, 'editPromo'])->name('promociones.edit');
+
+Route::get('/tienda/promociones/guardar/{id}', [TiendaController::class, 'updatePromo'])->name('promociones.update');
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
