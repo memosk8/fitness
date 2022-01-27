@@ -15,13 +15,21 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('fecha');
-            $table->double('total');
+            $table->date('fecha');
+            
+            //usuario
+            $table->string('nombreusuario');
+            //clientes
+            $table->string('nombrecliente');
+            //productos
+            $table->string('nombreproducto')->unique();
+            $table->string('cantidad');
             $table->timestamps();
             $table->softDeletes();
+            
+            
         });
     }
-
     /**
      * Reverse the migrations.
      *

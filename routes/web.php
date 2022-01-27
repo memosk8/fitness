@@ -81,6 +81,11 @@ Route::get('/tienda/cliente/{id}',[TiendaController::class,'verCliente'])->name(
 
 Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas');
 
+Route::get('/tienda/ventas/registrar',[TiendaController::class,'registrarIndex'])->name('registrarIndex');
+// La funcion registrar Ventas fue hecha por Mauricio Castañeda 
+Route::get('/tienda/ventas/create',[TiendaController::class,'registrarVenta'])->name('registrarVenta');
+Route::get('/tienda/ventas/modificar',[TiendaController::class,'updateIndex'])->name('updateIndex');
+
 ROute::get('tienda/ventas/nueva',[TiendaController::class, 'nuevaVentaForm'])->name('ventas.nueva');
 
 Route::get('/tienda/venta/{id}',[TiendaController::class,'showVenta'])->name('ventas.ver');
