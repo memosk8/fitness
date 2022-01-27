@@ -1,12 +1,12 @@
 @extends('layouts.tienda')
-
+@section('title','Promociones')
 @section('main-content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"  />
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-    <div class="row">
+    <div class="row ms-2 w-100">
         <div class="col-12 p-1">
             <h1 class=" text-center bg-dark text-white p-2 ">Promociones</h1>
         </div>
