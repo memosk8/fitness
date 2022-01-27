@@ -24,7 +24,7 @@
             <table class="table table-sortable table-sm m-0 text-center border-1 border-dark p-1" >
 
                <thead >
-                  <tr class="table-primary" id="header">
+                  <tr class="bg-primary bg-opacity-25 " id="header">
                      <th scope="col" class="border-start border-success"><a href="#"># ID</a></th>
                      <th scope="col" class="border-start border-success"><a href="#">Nombre</a></th>
                      <th scope="col" class="border-start border-success"><a href="#">Cuota</a></th>
@@ -37,7 +37,7 @@
                      <th scope="col" class="border-start border-success"><a href="#">Estado</a></th>
                      <th scope="col" class="border-start border-success"><a href="#">Codigo postal</a></th>
                      <th scope="col" class="border-start border-success"><a href="#">fecha</a></th>
-                     <th scope="col" class="border-start">Opciones</th>
+                     <th scope="col> class="border-start">Opciones</th>
                   </tr>
                </thead>
                <tbody id="tbody">
@@ -59,12 +59,12 @@
 
                      <td class="border-1 border-success">
                         <form action="{{ route('clientes.eliminar', $cliente->id) }}" method="post" class="m-1 mx-0">
-                           <a href="{{ route('cliente.update.form',$cliente->id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                           <a href="{{ route('cliente.update.form',$cliente->id) }}" class="btn btn-info">Editar</a>
                            &nbsp;
                            &nbsp;
                            @csrf
                            @method('DELETE')
-                           <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                           <button type="submit" class="btn btn-danger">Eliminar</a>
                         </form>
                      </td>
                   </tr>
