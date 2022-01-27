@@ -12,8 +12,9 @@ class Sale extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'fecha', 'total'
+        'fecha', 'nombreusuario','nombrecliente','nombreproducto','cantidad',
     ];
+
 
     public function product(){
         return $this->hasMany(Product::class);

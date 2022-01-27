@@ -53,7 +53,7 @@ class TiendaController extends Controller
    public function indexVentas()
    {
       $ventas = Sale::latest()->paginate(5);
-      return view('tienda.ventas', compact('ventas', $ventas));
+       return view('tienda.ventas.index', compact('ventas', $ventas));
    }
 
    public function indexPromocion(Request $request)
@@ -262,6 +262,8 @@ class TiendaController extends Controller
    {
       $clientes = DB::table('clients')->where('active', 1)->get();
 
+      $data = User::where('id', session('LoggedUser'))->first();
+
       $count = 1;
       // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
@@ -276,7 +278,7 @@ class TiendaController extends Controller
       //    } 
       // }
 
-      return view('tienda.clientes.index', compact('clientes', 'count'));
+      return view('tienda.clientes.index', compact('clientes', 'data'));
    }
 
    public function indexVentasCliente()
@@ -401,4 +403,32 @@ class TiendaController extends Controller
       ]);
       return redirect()->route('clientes');
    }
+  
+  
+   /* VENTAS - MAURICIO */
+   
+  
+   public function registrarVenta(Request $req )
+   {
+       $venta = new Sale();
+       $venta->fecha = $req->input('fecha');
+       $venta->nombreproducto = $req->input('nombreproducto');
+       $venta->nombrecliente = $req->input('nombrecliente');
+       $venta->nombreusuario = $req->input('nombreusuario');
+       $venta->cantidad = $req->input('cantidad');
+       $venta->save();
+       return redirect('/tienda/ventas');
+   }
+   // La funcion registrar Ventas fue hecha por Mauricio Castañeda 
+   public function registrarIndex(){
+       $ventas = new Sale();
+       $productos= new Product();
+        $ventas = Sale::latest()->paginate(5);
+        return view('tienda.ventas.registrar',compact('ventas',$ventas));
+    }
+    public function updateIndex(){
+       return view ('tienda.ventas.update');
+    }
+   
 }
+

@@ -88,7 +88,13 @@ Route::group(['middleware' => ['AuthCheck']], function () {
 
    Route::get('/tienda/ventas', [TiendaController::class, 'indexVentas'])->name('ventas');
 
-   ROute::get('tienda/ventas/nueva', [TiendaController::class, 'nuevaVentaForm'])->name('ventas.nueva');
+   Route::get('tienda/ventas/nueva', [TiendaController::class, 'nuevaVentaForm'])->name('ventas.nueva');
+   Route::get('/tienda/ventas/registrar', [TiendaController::class, 'registrarIndex'])->name('registrarIndex');
+   // La funcion registrar Ventas fue hecha por Mauricio Castañeda 
+   Route::get('/tienda/ventas/create', [TiendaController::class, 'registrarVenta'])->name('registrarVenta');
+   Route::get('/tienda/ventas/modificar', [TiendaController::class, 'updateIndex'])->name('updateIndex');
+
+   Route::get('tienda/ventas/nueva', [TiendaController::class, 'nuevaVentaForm'])->name('ventas.nueva');
 
    Route::get('/tienda/venta/{id}', [TiendaController::class, 'showVenta'])->name('ventas.ver');
 
@@ -109,6 +115,6 @@ Route::group(['middleware' => ['AuthCheck']], function () {
    Route::get('/tienda/promociones/guardar/{id}', [TiendaController::class, 'updatePromo'])->name('promociones.update');
 });
 
-Auth::routes();
+
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
