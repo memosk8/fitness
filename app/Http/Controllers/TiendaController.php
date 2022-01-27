@@ -266,7 +266,6 @@ class TiendaController extends Controller
 
       $data = User::where('id', session('LoggedUser'))->first();
 
-      $count = 1;
       // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
       // no seas pendejo cabrón

@@ -14,18 +14,18 @@
       <hr>
       @endif
       <div class="col-md-4 mt-2 ">
-         
-         <form action="{{ url('nuevoUsuario') }}" method="POST">
+
+         <form action="{{ route('user.create') }}" method="POST">
             @csrf
             <div class="form-group">
                <label class="p-2" for="nombre">Nombre</label>
                <input class="form-control" type="text" name="nombre" value="{{ old('nombre')}}" required>
-               
+
                @error('nombre')
                <div class="alert-info">Un error con el nombre</div>
                @enderror
-               
-               
+
+
             </div>
             <div class="form-group">
                <label class="p-2" for="apellidoPaterno">Apellido Paterno</label>
@@ -35,7 +35,7 @@
                <label class="p-2" for="apellidoMaterno">Apellido Materno</label>
                <input class="form-control" type="text" name="apellidoMaterno" value="{{ old('apellidoMaterno')}}" required>
             </div>
-            
+
             <div class="form-group">
                <label class="p-2" for="email">Email</label>
                <input type="email" name="email" class="form-control" value="{{ old('email')}}" required>
@@ -46,7 +46,7 @@
             </div>
             <hr>
             @enderror
-            
+
 
 
             <div class="form-group">
@@ -63,6 +63,15 @@
                   <option value="profes">Profesores</option>
                   <option value="rh">Recursos Humanos</option>
                   <option value="tienda">Tienda</option>
+               </select>
+            </div>
+
+            <div class="form-group">
+               <label class="p-2" for="centro">Centro</label>
+               <select name="centro" required>
+                  @foreach($centros as $centro)
+                  <option value="{{ $centro->id}}">{{$centro->nombre}}</option>
+                  @endforeach
                </select>
             </div>
 

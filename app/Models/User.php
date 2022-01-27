@@ -39,11 +39,11 @@ class User extends Authenticatable
     ];
 
     public function center(){
-        return $this->belongsTo(Center::class);
+        return $this->belongsTo(Center::class,'id');
     }
 
     public function sale(){
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Sale::class,'id');
     }
 
 }
