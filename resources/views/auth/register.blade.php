@@ -3,44 +3,50 @@
 @section('main-content')
 
 <div class="container">
-   <div class="row">
+   <div class="row ">
       @if(Session::get('success'))
-         <div class="alert-success p-2 text-center m-2 fs-3">{{ Session::get('success')}}</div>
+      <div class="alert-success p-2 m-2 fs-3">{{ Session::get('success')}}</div>
       @endif
-      <div class="col-md-4 col-md-5 mt-2">
-         <br>
-         <h4 class="card-header">Registro</h4>
-         <hr>
-
+      <br>
+      <h4 class="card-header bg-light bg-opacity-75 pt-2 mt-2 ">Registro</h4>
+      @if(Session::get('fail'))
+      <div class="alert-danger">{{ Session::get('fail')}}</div>
+      <hr>
+      @endif
+      <div class="col-md-4 mt-2 ">
+         
          <form action="{{ url('nuevoUsuario') }}" method="POST">
             @csrf
             <div class="form-group">
                <label class="p-2" for="nombre">Nombre</label>
-               <input class="form-control" type="text" name="nombre" value="" required>
-
-
-               @if(Session::get('fail'))
-               <div class="alert-danger">{{ Session::get('fail')}}</div>
-               @endif
-
+               <input class="form-control" type="text" name="nombre" value="{{ old('nombre')}}" required>
+               
+               @error('nombre')
+               <div class="alert-info">Un error con el nombre</div>
+               @enderror
+               
+               
             </div>
             <div class="form-group">
                <label class="p-2" for="apellidoPaterno">Apellido Paterno</label>
-               <input class="form-control" type="text" name="apellidoPaterno" value="" required>
+               <input class="form-control" type="text" name="apellidoPaterno" value="{{ old('apellidoPaterno')}}" required>
             </div>
             <div class="form-group">
                <label class="p-2" for="apellidoMaterno">Apellido Materno</label>
-               <input class="form-control" type="text" name="apellidoMaterno" value="" required>
+               <input class="form-control" type="text" name="apellidoMaterno" value="{{ old('apellidoMaterno')}}" required>
             </div>
-
+            
             <div class="form-group">
                <label class="p-2" for="email">Email</label>
-               <input type="email" name="email" class="form-control" required>
+               <input type="email" name="email" class="form-control" value="{{ old('email')}}" required>
             </div>
-
-            @error('nombre')
-            <div class="alert-info">Un error con el email</div>
+            @error('email')
+            <div class="alert-danger p-2 my-3">
+               <p>Este correo ya ha sido registrado previamente</p>
+            </div>
+            <hr>
             @enderror
+            
 
 
             <div class="form-group">

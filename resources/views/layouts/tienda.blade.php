@@ -44,7 +44,7 @@
             </a>
         </li>
          <li class="text-uppercase">
-            @yield("userName")
+            @yield('userName')
          </li>
       </ul>
 
@@ -54,7 +54,7 @@
 
    </nav>
 
-   <main class="col-md-11 text-center m-auto">
+   <main class="col-md-11  m-auto">
 
       @yield('main-content')
 

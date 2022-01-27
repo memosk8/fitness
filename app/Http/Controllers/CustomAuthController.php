@@ -46,7 +46,7 @@ class CustomAuthController extends Controller
       if ($save) {
          return back()->with('success', 'Nuevo usuario registrado');
       } else {
-         return back()->with('fail', 'Something went wrong');
+         return back()->with('fail', 'Algo salión mal');
       }
 
       // return $validated;
@@ -67,27 +67,34 @@ class CustomAuthController extends Controller
    function check(Request $req)
    {
       $req->validate([
-         'email' => 'required',
+         'email' => 'required|email',
          'password' => 'required'
       ]);
 
       $userInfo = User::where('email', $req->email)->first();
 
       if (!$userInfo) {
-         return back()->with('fail', 'No reconocemos ese correo');
+         return back()->with('fail', 'Correo o contraseña incorrectos');
       } else {
          if (Hash::check($req->password, $userInfo->password)){
             $req->session()->put('LoggedUser', $userInfo->id);
-            return redirect()->route('productos');
+            return redirect()->route('user.session');
          }
          else{
-            return back()->with('fail','Password incorrecto');
+            return back()->with('fail','Correo o contraseña incorrectos');
          }
       }
    }
 
-   function dashboard(){
+   function session(){
       $data = User::where('id',session('LoggedUser'))->first();
       return view('auth.session', compact('data'));
+   }
+
+   public function logout(){
+      if(session()->has('LoggedUser')){
+         session()->pull('LoggedUser');
+         return redirect('/login');
+      }
    }
 }
