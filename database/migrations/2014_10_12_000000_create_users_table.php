@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
          $table->id();
          $table->boolean('active');
          $table->string('nombre');
-         $table->string('apellidoaPaterno');
+         $table->string('apellidoPaterno');
          $table->string('apellidoMaterno');
          $table->string('email')->unique();
          $table->enum('rol',['adm','profes','rh','tienda']);

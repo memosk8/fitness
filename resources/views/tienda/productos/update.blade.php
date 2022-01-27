@@ -1,5 +1,5 @@
 @extends('layouts.tienda')
-
+@section('title', 'Registrar producto')
 @section('main-content')
     <div class="container-fluid">
         <div class="row justify-content-around">

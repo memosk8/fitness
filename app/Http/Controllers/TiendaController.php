@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -401,7 +402,9 @@ class TiendaController extends Controller
       ]);
       return redirect()->route('clientes');
    }
-   //Ventas
+  
+  
+   /* VENTAS - MAURICIO */
    
   
    public function registrarVenta(Request $req )
@@ -427,3 +430,4 @@ class TiendaController extends Controller
     }
    
 }
+
