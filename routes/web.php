@@ -55,6 +55,28 @@ Route::post('/tienda/productos/buscar',[TiendaController::class, 'buscarProducto
 Route::get('/tienda/producto/{id}',[TiendaController::class,'verProducto'])->name('productos.ver');
 
 
+//clientes *******************************************************************************************************
+Route::get('/tienda/clientes', [TiendaController::class,'indexClientes'])->name('clientes');
+
+Route::get('/tienda/clientes/nuevo', [TiendaController::class,'nuevoClienteForm'])->name('clientes.nuevo');
+
+Route::post('/tienda/clientes/registro',[TiendaController::class,'registrarCliente'])->name('clientes.registro');
+
+Route::get('/tienda/clientes/actualizar/{id}',[TiendaController::class,'updateClienteForm'])->name('cliente.update.form');
+
+Route::put('/tienda/cliente/update/{id}',[TiendaController::class,'updateCliente'])->name('clientes.update');
+
+Route::delete('/tienda/clientes/eliminar/{id}',[TiendaController::class,'deleteCliente'])->name('clientes.eliminar');
+
+Route::post('/tienda/clientes/buscar',[TiendaController::class, 'buscarCliente'])->name('clientes.buscar');
+
+Route::get('/tienda/cliente/{id}',[TiendaController::class,'verCliente'])->name('clientes.ver');
+
+
+
+
+
+
 /* VENTAS */
 
 Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas');
