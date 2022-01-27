@@ -3,25 +3,26 @@
 @section('userName')
 <a class="nav-link " href="{{ route('user.session') }}">
    <span data-feather="user" class="border-1"></span>
-   {{ $data->nombre}}
+   Sesión
 </a>
 @endsection
 @section('main-content')
 <div class="row">
-   <div class="col-12 p-1">
+   <div class="w-100 p-1">
       <h1 class=" text-center bg-dark text-white p-2 ">Productos en existencia</h1>
    </div>
-   <br>
-   <div class="nav my-2 mx-2 p-1">
+
+   <div class="nav my-2 p-1">
       <form action="{{ url('tienda/productos/buscar') }}" method="post">
+         @csrf
          <input class="w-auto border-2 p-2" type="search" name="search" placeholder="Buscar productos..." aria-label="Search" required>
       </form>
 
-      <a href="{{ url('tienda/productos/nuevo') }}" class="btn btn-success w-25 ms-auto m-2 ">Registrar producto</a>
+      <a href="{{ url('tienda/productos/nuevo') }}" class="btn btn-success w-25 ms-auto m-0 ">Registrar producto</a>
    </div>
    <br>
-   {{-- {{ $productos[0]->almacen }} --}}
-   <div class="col-md-12 m-0 p-0 ">
+
+   <div class="col-md-12 p-1">
       <div class="card m-0 " style="width: 100%">
          <div class="card-body p-0 mx-2 ">
 
