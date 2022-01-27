@@ -34,13 +34,13 @@ Route::post('/check', [CustomAuthController::class, 'check'])->name('user.check'
 
 
 Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen');
+Route::get('/login', [CustomAuthController::class, 'login'])->name('login');
 
 /** Validación de rutas, redirige al login si se intenta acceder a estas rutas sin estar logeado */
 
 Route::group(['middleware' => ['AuthCheck']], function () {
 
    Route::get('/tienda/user', [CustomAuthController::class, 'session'])->name('user.session');
-   Route::get('/login', [CustomAuthController::class, 'login'])->name('login');
    Route::get('/registro', [CustomAuthController::class, 'registro'])->name('user.register.form');
 
    /* PRODUCTOS */
