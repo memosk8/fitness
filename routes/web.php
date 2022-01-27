@@ -11,13 +11,13 @@ Route::get('/', function () {
 Route::get('/login', [CustomAuthController::class, 'login'])->name('login');
 Route::get('/registro', [CustomAuthController::class, 'registro'])->name('user.register.form');
 Route::post('/nuevoUsuario', [CustomAuthController::class, 'nuevoUsuario'])->name('user.create');
+Route::post('/check', [CustomAuthController::class, 'check'])->name('user.check');
 
 Route::group(['middleware' => ['AuthCheck']], function () {
    /** Validación de rutas, redirige al login si se intenta acceder a estas rutas sin estar logeado */
    
    Route::get('/tienda/user', [CustomAuthController::class, 'session'])->name('user.session');
    Route::get('/logout', [CustomAuthController::class, 'logout'])->name('logout');
-   Route::post('/check', [CustomAuthController::class, 'check'])->name('user.check');
    Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen');
 
    /* PRODUCTOS */
