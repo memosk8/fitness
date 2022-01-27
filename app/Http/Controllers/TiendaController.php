@@ -28,16 +28,15 @@ class TiendaController extends Controller
 
    public function indexProductos()
    {
-      $productos = DB::table('products')->where('active',1)->get();
+      $productos = DB::table('products')->where('active', 1)->get();
 
-      $data = User::where('id',session('LoggedUser'))->first();
+      $data = User::where('id', session('LoggedUser'))->first();
 
-      $count = 1;
       // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
 
       foreach ($productos as $producto) {
-         if($producto->active != 0){
+         if ($producto->active != 0) {
             $almacenProducto = DB::table('product_warehouse')
                ->select('warehouse_id')
                ->where('product_id', '=', $producto->id)
@@ -46,7 +45,7 @@ class TiendaController extends Controller
          }
       }
 
-      return view('tienda.productos.index', compact('productos','data'));
+      return view('tienda.productos.index', compact('productos', 'data'));
    }
 
    public function indexVentas()
@@ -55,9 +54,10 @@ class TiendaController extends Controller
       return view('tienda.ventas', compact('ventas', $ventas));
    }
 
-   public function indexPromocion(Request $request){
+   public function indexPromocion(Request $request)
+   {
       $promociones = Promo::all();
-      return view('tienda.promociones',compact('promociones'));
+      return view('tienda.promociones', compact('promociones'));
    }
 
    public function nuevoProductoForm()
@@ -127,7 +127,7 @@ class TiendaController extends Controller
       // selecciona products en la db 
       DB::table('products')
          // donde está este id
-         ->where('id',$id)
+         ->where('id', $id)
          // y actualiza COLUMNA => VALOR
          ->update([
             'nombre' => $req->input('nombre'),
@@ -138,7 +138,7 @@ class TiendaController extends Controller
          ]);
 
       DB::table('product_warehouse')
-         ->where('product_id',$id)
+         ->where('product_id', $id)
          ->update([
             'stock'        => $req->input('stock'),
             'product_id'   => $id,
@@ -150,16 +150,32 @@ class TiendaController extends Controller
 
    public function buscarProducto(Request $req)
    {
-      // $busqueda = $req->input('search');
+      $producto = new Product;
+      $busqueda = $req->input('search');
 
-      // return view('tienda.productos.show', compact('busqueda'));
+      $productos = DB::table('products')
+         ->where('nombre', 'LIKE', '%' . $busqueda . '%')
+         ->orWhere('id', $busqueda)
+         ->get();
+
+      foreach ($productos as $producto) {
+         if ($producto->active != 0) {
+            $almacenProducto = DB::table('product_warehouse')
+               ->select('warehouse_id')
+               ->where('product_id', '=', $producto->id)
+               ->get();
+            $producto->almacen = $almacenProducto[0]->warehouse_id;
+         }
+      }
+
+      return view('tienda.productos.show', compact('productos'));
    }
 
    public function deleteProducto($id)
    {
-      DB::table('product_warehouse')->where('product_id',$id)->delete();
-      
-      DB::table('products')->where('id',$id)->update([
+      DB::table('product_warehouse')->where('product_id', $id)->delete();
+
+      DB::table('products')->where('id', $id)->update([
          'active'     => 0,
          'deleted_at' => Date::now()->toDateTimeString(),
       ]);
@@ -167,61 +183,65 @@ class TiendaController extends Controller
    }
 
    //By Marisol Benitez
-   public function newPromo(Request $request){
+   public function newPromo(Request $request)
+   {
       $promo = new Promo();
       $promo->center_name = $request->input('center_name');
       $promo->product_name = $request->input('product_name');
       $promo->price = $request->input('price');
       $promo->month = $request->input('month');
-      $promo->status=True;
+      $promo->status = True;
       $promo->save();
-      
-      return redirect('tienda/promocion');
-  }
 
-  public function viewPromo(){
+      return redirect('tienda/promocion');
+   }
+
+   public function viewPromo()
+   {
       $promo = Promo::select('center_name')->get();
       return redirect('tienda/promocion');
-  }
+   }
 
-  public function PromoForm()
-  {
-   $centers = DB::table('centers')->select('nombre')->get();
-   $products = DB::table('products')->select('nombre')->get();
+   public function PromoForm()
+   {
+      $centers = DB::table('centers')->select('nombre')->get();
+      $products = DB::table('products')->select('nombre')->get();
 
-   return view('tienda.promociones.registrar',compact('centers','products'));
-  }
+      return view('tienda.promociones.registrar', compact('centers', 'products'));
+   }
 
-  public function editPromo($id){
-   $promociones = Promo::find($id);
-   $centers = DB::table('centers')->select('nombre')->get();
-   $products = DB::table('products')->select('nombre')->get();
-   return view('tienda.promociones.editar',compact('promociones','centers','products'));
-  }
+   public function editPromo($id)
+   {
+      $promociones = Promo::find($id);
+      $centers = DB::table('centers')->select('nombre')->get();
+      $products = DB::table('products')->select('nombre')->get();
+      return view('tienda.promociones.editar', compact('promociones', 'centers', 'products'));
+   }
 
-  public function updatePromo(Request $request, $id){
-  
-  DB::table('promos')
-  
-  ->where('id',$id)
-  
-  ->update([
-     
-     'center_name'   => $request->input('center_name'),
-     'product_name' => $request->input('product_name'),
-     'price'  => $request->input('price'),
-     'month'  => $request->input('month'),
-     'updated_at' => Date::now()->toDateTimeString()
-  ]);
+   public function updatePromo(Request $request, $id)
+   {
 
-  
-   return redirect('tienda/promocion');
-  }
-  
-  public function destroyPromo($id){
-   $promocion = Promo::find($id);
-   $promocion->delete();
-   return redirect('tienda/promocion');
-      
-  }
+      DB::table('promos')
+
+         ->where('id', $id)
+
+         ->update([
+
+            'center_name'   => $request->input('center_name'),
+            'product_name' => $request->input('product_name'),
+            'price'  => $request->input('price'),
+            'month'  => $request->input('month'),
+            'updated_at' => Date::now()->toDateTimeString()
+         ]);
+
+
+      return redirect('tienda/promocion');
+   }
+
+   public function destroyPromo($id)
+   {
+      $promocion = Promo::find($id);
+      $promocion->delete();
+      return redirect('tienda/promocion');
+   }
 }
