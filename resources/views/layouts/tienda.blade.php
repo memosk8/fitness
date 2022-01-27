@@ -10,10 +10,10 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
    <link rel="stylesheet" href="../css/table.css">
-   <script src="../js/index.js" defer></script>
+   <script src="{{ asset('js/index.js')}}" defer></script>
 </head>
 
-<body class="bg-dark bg-opacity-25 mb-5">
+<body class="bg-secondary bg-opacity-50 mb-5 w-100 h-100">
 
    <nav class="navbar navbar-light sticky-top navbar-expand-md bg-light text-white ">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0 m-2 text-md-center text-uppercase bg-light bg-opacity-25" href="{{ route('productos') }}">Fitness Salud</a>
@@ -25,7 +25,7 @@
             </a>
          </li>
 
-         <li class="px-3">
+         <li >
             <a class="nav-link" href="{{ url('/tienda/productos') }}">
                <span data-feather="shopping-cart" class="border-1 border-dark"></span>
                Almacén
@@ -54,10 +54,9 @@
 
    </nav>
 
-   <main class="container-fluid">
+   <main class="col-md-11 text-center m-auto">
 
       @yield('main-content')
-
 
    </main>
 
