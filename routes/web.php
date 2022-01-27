@@ -16,21 +16,23 @@ use App\Http\Controllers\TiendaController;
 */
 
 //se habilita la ruta de registro de nuevo usuario
-Auth::routes(['register' => True]);
+// Auth::routes(['register' => True]);
 
 Route::get('/', function(){
-    return redirect('/tienda');
+    return redirect('/login');
 });
-
+   
 // Route::post('registro',[CustomAuthController::class, 'nuevoUsuario']);
 
 Route::get('/login',[CustomAuthController::class,'login'])->name('login');
 
-Route::get('/registro',[CustomAuthController::class,'registro'])->name('registro');
+Route::get('/registro',[CustomAuthController::class,'registro'])->name('user.register.form');
 
-Route::post('/nuevoUsuario',[CustomAuthController::class,'nuevoUsuario'])->name('nuevo');
+Route::post('/nuevoUsuario',[CustomAuthController::class,'nuevoUsuario'])->name('user.create');
 
-Route::get('/tienda', [TiendaController::class,'index'])->name('tiendaHome');
+Route::post('/check', [CustomAuthController::class, 'check'])->name('user.check');
+
+Route::get('/tienda/user', [CustomAuthController::class,'dashboard'])->name('user.session');
 
 Route::get('/tienda/almacen', [TiendaController::class, 'indexAlmacen'])->name('almacen');
 
@@ -53,15 +55,56 @@ Route::post('/tienda/productos/buscar',[TiendaController::class, 'buscarProducto
 Route::get('/tienda/producto/{id}',[TiendaController::class,'verProducto'])->name('productos.ver');
 
 
+//clientes *******************************************************************************************************
+Route::get('/tienda/clientes', [TiendaController::class,'indexClientes'])->name('clientes');
+
+Route::get('/tienda/clientes/nuevo', [TiendaController::class,'nuevoClienteForm'])->name('clientes.nuevo');
+
+Route::post('/tienda/clientes/registro',[TiendaController::class,'registrarCliente'])->name('clientes.registro');
+
+Route::get('/tienda/clientes/actualizar/{id}',[TiendaController::class,'updateClienteForm'])->name('cliente.update.form');
+
+Route::put('/tienda/cliente/update/{id}',[TiendaController::class,'updateCliente'])->name('clientes.update');
+
+Route::delete('/tienda/clientes/eliminar/{id}',[TiendaController::class,'deleteCliente'])->name('clientes.eliminar');
+
+Route::post('/tienda/clientes/buscar',[TiendaController::class, 'buscarCliente'])->name('clientes.buscar');
+
+Route::get('/tienda/cliente/{id}',[TiendaController::class,'verCliente'])->name('clientes.ver');
+
+
+
+
+
+
 /* VENTAS */
 
 Route::get('/tienda/ventas', [TiendaController::class,'indexVentas'])->name('ventas');
+
+Route::get('/tienda/ventas/registrar',[TiendaController::class,'registrarIndex'])->name('registrarIndex');
+// La funcion registrar Ventas fue hecha por Mauricio Castañeda 
+Route::get('/tienda/ventas/create',[TiendaController::class,'registrarVenta'])->name('registrarVenta');
+Route::get('/tienda/ventas/modificar',[TiendaController::class,'updateIndex'])->name('updateIndex');
 
 ROute::get('tienda/ventas/nueva',[TiendaController::class, 'nuevaVentaForm'])->name('ventas.nueva');
 
 Route::get('/tienda/venta/{id}',[TiendaController::class,'showVenta'])->name('ventas.ver');
 
 Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promocion');
+
+/* PROMOCIONES */
+
+Route::get('/tienda/promocion', [TiendaController::class, 'indexPromocion'])->name('promociones.index');
+
+Route::get('/tienda/promociones/registrar', [TiendaController::class, 'PromoForm'])->name('promociones.reg');
+
+Route::get('/tienda/promocion/create', [TiendaController::class, 'newPromo'])->name('promociones.create');
+
+Route::get('/tienda/promocion/destroy/{id}', [TiendaController::class, 'destroyPromo'])->name('promociones.destroy');
+
+Route::get('/tienda/promociones/editar/{id}', [TiendaController::class, 'editPromo'])->name('promociones.edit');
+
+Route::get('/tienda/promociones/guardar/{id}', [TiendaController::class, 'updatePromo'])->name('promociones.update');
 
 Auth::routes();
 
