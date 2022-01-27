@@ -16,7 +16,7 @@
             <div class="col-md-12 m-0 p-0 ">
                <div class="card m-0 " style="width: 100%">
                   <div class="card-body p-0 mx-2 ">
-
+                  @if(sizeof($productos) > 0)
                      <table class="table table-sortable table-sm text-center border-1 border-dark p-1">
 
                         <thead>
@@ -56,7 +56,11 @@
                            @endforeach
                         </tbody>
                      </table>
-
+                  @else
+                  <div class="p-0 m-0 bg-danger ">
+                     <h1 class="m-2 p-2 ft-3 text-white">No hay resultados para esta búsqueda</h1>
+                  </div>
+                  @endif
                   </div>
                </div>
             </div>
