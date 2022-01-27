@@ -26,18 +26,19 @@ class TiendaController extends Controller
       return view('tienda.almacen', compact('almacen', $almacen));
    }
 
+   /** PRODUCTOS - MEMO */
+
    public function indexProductos()
    {
-      $productos = DB::table('products')->where('active',1)->get();
+      $productos = DB::table('products')->where('active', 1)->get();
 
-      $data = User::where('id',session('LoggedUser'))->first();
+      $data = User::where('id', session('LoggedUser'))->first();
 
-      $count = 1;
       // a cada uno de los productos se le añade
       // la propiedad almacen que refiere al warehouse_id registrado
 
       foreach ($productos as $producto) {
-         if($producto->active != 0){
+         if ($producto->active != 0) {
             $almacenProducto = DB::table('product_warehouse')
                ->select('warehouse_id')
                ->where('product_id', '=', $producto->id)
@@ -46,39 +47,19 @@ class TiendaController extends Controller
          }
       }
 
-      return view('tienda.productos.index', compact('productos','data'));
+      return view('tienda.productos.index', compact('productos', 'data'));
    }
 
    public function indexVentas()
    {
       $ventas = Sale::latest()->paginate(5);
-      return view('tienda.ventas.index', compact('ventas', $ventas));
+       return view('tienda.ventas.index', compact('ventas', $ventas));
    }
-   public function registrarVenta(Request $req )
-   {
-       $venta = new Sale();
-       $venta->fecha = $req->input('fecha');
-       $venta->nombreproducto = $req->input('nombreproducto');
-       $venta->nombrecliente = $req->input('nombrecliente');
-       $venta->nombreusuario = $req->input('nombreusuario');
-       $venta->cantidad = $req->input('cantidad');
-       $venta->save();
-       return redirect('/tienda/ventas');
-   }
-   // La funcion registrar Ventas fue hecha por Mauricio Castañeda 
-   public function registrarIndex(){
-       $ventas = new Sale();
-       $productos= new Product();
-        $ventas = Sale::latest()->paginate(5);
-        return view('tienda.ventas.registrar',compact('ventas',$ventas));
-    }
-    public function updateIndex(){
-       return view ('tienda.ventas.update');
-    }
 
-   public function indexPromocion(Request $request){
+   public function indexPromocion(Request $request)
+   {
       $promociones = Promo::all();
-      return view('tienda.promociones',compact('promociones'));
+      return view('tienda.promociones', compact('promociones'));
    }
 
    public function nuevoProductoForm()
@@ -148,7 +129,7 @@ class TiendaController extends Controller
       // selecciona products en la db 
       DB::table('products')
          // donde está este id
-         ->where('id',$id)
+         ->where('id', $id)
          // y actualiza COLUMNA => VALOR
          ->update([
             'nombre' => $req->input('nombre'),
@@ -159,7 +140,7 @@ class TiendaController extends Controller
          ]);
 
       DB::table('product_warehouse')
-         ->where('product_id',$id)
+         ->where('product_id', $id)
          ->update([
             'stock'        => $req->input('stock'),
             'product_id'   => $id,
@@ -171,85 +152,107 @@ class TiendaController extends Controller
 
    public function buscarProducto(Request $req)
    {
-      // $busqueda = $req->input('search');
+      $producto = new Product;
+      $busqueda = $req->input('search');
 
-      // return view('tienda.productos.show', compact('busqueda'));
+      $productos = DB::table('products')
+         ->where('nombre', 'LIKE', '%' . $busqueda . '%')
+         ->orWhere('id', $busqueda)
+         ->get();
+
+      foreach ($productos as $producto) {
+         if ($producto->active != 0) {
+            $almacenProducto = DB::table('product_warehouse')
+               ->select('warehouse_id')
+               ->where('product_id', '=', $producto->id)
+               ->get();
+            $producto->almacen = $almacenProducto[0]->warehouse_id;
+         }
+      }
+
+      return view('tienda.productos.show', compact('productos'));
    }
 
    public function deleteProducto($id)
    {
-      DB::table('product_warehouse')->where('product_id',$id)->delete();
-      
-      DB::table('products')->where('id',$id)->update([
+      DB::table('product_warehouse')->where('product_id', $id)->delete();
+
+      DB::table('products')->where('id', $id)->update([
          'active'     => 0,
          'deleted_at' => Date::now()->toDateTimeString(),
       ]);
       return redirect()->route('productos');
    }
 
+   /** PROMOCIONES - MARISOL */
+
    //By Marisol Benitez
-   public function newPromo(Request $request){
+   public function newPromo(Request $request)
+   {
       $promo = new Promo();
       $promo->center_name = $request->input('center_name');
       $promo->product_name = $request->input('product_name');
       $promo->price = $request->input('price');
       $promo->month = $request->input('month');
-      $promo->status=True;
+      $promo->status = True;
       $promo->save();
-      
-      return redirect('tienda/promocion');
-  }
 
-  public function viewPromo(){
+      return redirect('tienda/promocion');
+   }
+
+   public function viewPromo()
+   {
       $promo = Promo::select('center_name')->get();
       return redirect('tienda/promocion');
-  }
+   }
 
-  public function PromoForm()
-  {
-   $centers = DB::table('centers')->select('nombre')->get();
-   $products = DB::table('products')->select('nombre')->get();
+   public function PromoForm()
+   {
+      $centers = DB::table('centers')->select('nombre')->get();
+      $products = DB::table('products')->select('nombre')->get();
 
-   return view('tienda.promociones.registrar',compact('centers','products'));
-  }
+      return view('tienda.promociones.registrar', compact('centers', 'products'));
+   }
 
-  public function editPromo($id){
-   $promociones = Promo::find($id);
-   $centers = DB::table('centers')->select('nombre')->get();
-   $products = DB::table('products')->select('nombre')->get();
-   return view('tienda.promociones.editar',compact('promociones','centers','products'));
-  }
+   public function editPromo($id)
+   {
+      $promociones = Promo::find($id);
+      $centers = DB::table('centers')->select('nombre')->get();
+      $products = DB::table('products')->select('nombre')->get();
+      return view('tienda.promociones.editar', compact('promociones', 'centers', 'products'));
+   }
 
-  public function updatePromo(Request $request, $id){
-  
-  DB::table('promos')
-  
-  ->where('id',$id)
-  
-  ->update([
-     
-     'center_name'   => $request->input('center_name'),
-     'product_name' => $request->input('product_name'),
-     'price'  => $request->input('price'),
-     'month'  => $request->input('month'),
-     'updated_at' => Date::now()->toDateTimeString()
-  ]);
+   public function updatePromo(Request $request, $id)
+   {
 
-  
-   return redirect('tienda/promocion');
-  }
-  
-  public function destroyPromo($id){
-   $promocion = Promo::find($id);
-   $promocion->delete();
-   return redirect('tienda/promocion');
-      
-  }
+      DB::table('promos')
 
-//clientes**********************************************************************
+         ->where('id', $id)
+
+         ->update([
+
+            'center_name'   => $request->input('center_name'),
+            'product_name' => $request->input('product_name'),
+            'price'  => $request->input('price'),
+            'month'  => $request->input('month'),
+            'updated_at' => Date::now()->toDateTimeString()
+         ]);
 
 
-public function indexCliente()
+      return redirect('tienda/promocion');
+   }
+
+   public function destroyPromo($id)
+   {
+      $promocion = Promo::find($id);
+      $promocion->delete();
+      return redirect('tienda/promocion');
+   }
+
+   //clientes**********************************************************************
+
+
+   public function indexCliente()
    {
       $cliente = Client::latest()->paginate(15);
       return view('tienda.cliente', compact('cliente', $cliente));
@@ -257,7 +260,7 @@ public function indexCliente()
 
    public function indexClientes()
    {
-      $clientes = DB::table('clients')->where('active',1)->get();
+      $clientes = DB::table('clients')->where('active', 1)->get();
 
       $count = 1;
       // a cada uno de los productos se le añade
@@ -273,7 +276,7 @@ public function indexCliente()
       //    } 
       // }
 
-      return view('tienda.clientes.index', compact('clientes','count'));
+      return view('tienda.clientes.index', compact('clientes', 'count'));
    }
 
    public function indexVentasCliente()
@@ -304,7 +307,7 @@ public function indexCliente()
          'ciudad' => 'string',
          'estado' => 'string',
          'cp' => 'numeric'
-         
+
       ]);
 
       // se crea un nuevo cliente con la solicitud validada
@@ -354,7 +357,7 @@ public function indexCliente()
       // selecciona clients en la db 
       DB::table('clients')
          // donde está este id
-         ->where('id',$id)
+         ->where('id', $id)
          // y actualiza COLUMNA => VALOR
          ->update([
             'nombre' => $req->input('nombre'),
@@ -371,7 +374,7 @@ public function indexCliente()
          ]);
 
       DB::table('client_sale')
-         ->where('client_id',$id)
+         ->where('client_id', $id)
          ->update([
             'sales'        => $req->input('sales'),
             'client_id'   => $id,
@@ -390,21 +393,37 @@ public function indexCliente()
 
    public function deleteCliente($id)
    {
-      DB::table('client_sale')->where('client_id',$id)->delete();
-      
+      DB::table('client_sale')->where('client_id', $id)->delete();
+
       DB::table('clients')->update([
          'active'     => 0,
          'deleted_at' => Date::now()->toDateTimeString(),
       ]);
       return redirect()->route('clientes');
    }
-
-
-
-
-
-
-
-
-
+   //Ventas
+   
+  
+   public function registrarVenta(Request $req )
+   {
+       $venta = new Sale();
+       $venta->fecha = $req->input('fecha');
+       $venta->nombreproducto = $req->input('nombreproducto');
+       $venta->nombrecliente = $req->input('nombrecliente');
+       $venta->nombreusuario = $req->input('nombreusuario');
+       $venta->cantidad = $req->input('cantidad');
+       $venta->save();
+       return redirect('/tienda/ventas');
+   }
+   // La funcion registrar Ventas fue hecha por Mauricio Castañeda 
+   public function registrarIndex(){
+       $ventas = new Sale();
+       $productos= new Product();
+        $ventas = Sale::latest()->paginate(5);
+        return view('tienda.ventas.registrar',compact('ventas',$ventas));
+    }
+    public function updateIndex(){
+       return view ('tienda.ventas.update');
+    }
+   
 }
