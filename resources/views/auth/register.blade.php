@@ -4,21 +4,23 @@
 
 <div class="container">
    <div class="row">
+      @if(Session::get('success'))
+         <div class="alert-success p-2 text-center m-2 fs-3">{{ Session::get('success')}}</div>
+      @endif
       <div class="col-md-4 col-md-5 mt-2">
          <br>
          <h4 class="card-header">Registro</h4>
          <hr>
+
          <form action="{{ url('nuevoUsuario') }}" method="POST">
             @csrf
             <div class="form-group">
                <label class="p-2" for="nombre">Nombre</label>
                <input class="form-control" type="text" name="nombre" value="" required>
-               @if(Session::get('success'))
-                  <div class="alert-info">{{ Session::get('success')}}</div>
-               @endif
+
 
                @if(Session::get('fail'))
-                  <div class="alert-danger">{{ Session::get('fail')}}</div>
+               <div class="alert-danger">{{ Session::get('fail')}}</div>
                @endif
 
             </div>
