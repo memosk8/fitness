@@ -1,6 +1,12 @@
 @extends('layouts.tienda')
-
-
+@section('userName')
+<a class="nav-link fw-bold" href="{{ route('user.session') }}">
+   <span data-feather="user" class="border-1">
+   </span>
+   {{ $data->nombre }}
+</a>
+@endsection
+@section('title','Ventas')
 @section('main-content')
 
 <div class="row">

@@ -1,5 +1,14 @@
 @extends('layouts.tienda')
 @section('title','Promociones')
+
+@section('userName')
+<a class="nav-link fw-bold" href="{{ route('user.session') }}">
+   <span data-feather="user" class="border-1">
+   </span>
+   {{ $data->nombre }}
+</a>
+
+@endsection
 @section('main-content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"  />
