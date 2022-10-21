@@ -30,7 +30,7 @@ Route::group(['middleware' => ['AuthCheck']], function () {
    Route::post('/tienda/productos/buscar', [TiendaController::class, 'buscarProducto'])->name('productos.buscar');
    Route::get('/tienda/producto/{id}', [TiendaController::class, 'verProducto'])->name('productos.ver');
 
-   //clientes *******************************************************************************************************
+   //clientes 
    Route::get('/tienda/clientes', [TiendaController::class, 'indexClientes'])->name('clientes');
    Route::get('/tienda/clientes/nuevo', [TiendaController::class, 'nuevoClienteForm'])->name('clientes.nuevo');
    Route::post('/tienda/clientes/registro', [TiendaController::class, 'registrarCliente'])->name('clientes.registro');
